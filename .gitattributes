@@ -1,0 +1,12 @@
+* text eol=lf
+
+# make sure we don't corrupt the kanim inputs.
+*.png    binary
+*.bytes  binary
+
+# spriter project file.  don't mess with it.
+*.scml   binary
+
+# fuuuuu, stupid binary Unity assets *without* an extension.
+**/ModAssets/assets/**  binary
+

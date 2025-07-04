@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Build Properties -->
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <AssemblyName>SlippyCheeze.MetaProgramming.MetaLama</AssemblyName>
+    <RootNamespace>SlippyCheeze.MetaProgramming.MetaLama</RootNamespace>
+    <IsMod>false</IsMod>
+    <GenerateMetadata>true</GenerateMetadata>
+    <IsPacked>false</IsPacked>
+
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
+
+    <LangVersion>preview</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <NuGetAuditMode>all</NuGetAuditMode>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutDir>bin</OutDir>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>Nullable;CS8509;LAMA0066;CS0162</WarningsNotAsErrors>
+    <NoWarn>1701;1702;CS8524</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>Nullable;CS8509;LAMA0066;CS0162</WarningsNotAsErrors>
+    <NoWarn>1701;1702;CS8524</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LamaDebug|AnyCPU'">
+    <WarningsNotAsErrors>Nullable;CS8509;LAMA0066;CS0162</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Metalama.Framework" Version="2025.1.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MetaProgramming\MetaProgramming.csproj" />
+  </ItemGroup>
+</Project>
