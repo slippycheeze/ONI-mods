@@ -7,8 +7,20 @@ using Metalama.Framework.Eligibility;
 namespace SlippyCheeze.MetaProgramming.MetaLama;
 
 [CompileTime]
-public class ONITranslationsImplementation: IAspect<INamedType> {
+public class ONITranslationExtensions: IAspect<INamedType> {
     public void BuildEligibility(IEligibilityBuilder<INamedType> builder) {
+        // yay. metalama make their internal rules available to build from.  nice.
+        builder.AddRule(EligibilityRuleFactory.GetAdviceEligibilityRule(AdviceKind.IntroduceField));
+
+        builder.MustBeStatic();  // not static, not welcome. :)
+        builder.MustSatisfy(t => t.TypeKind is TypeKind.Class, t => $"'{t}' must be a class");
+
+        // be opinionated, it fine. :)
+        builder.MustHaveAccessibility(Accessibility.Public);
+        builder.MustBePartial();
+
+        // ...extremely opinionated!
+        builder.MustSatisfy(t => t.Name == "MODSTRINGS", t => $"'t' must be named 'MODSTRINGS'");
     }
 
     public void BuildAspect(IAspectBuilder<INamedType> builder) {

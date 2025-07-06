@@ -12,7 +12,8 @@ public class ModFabric: TransitiveProjectFabric {
     public override void AmendProject(IProjectAmender project) {
         // 2025-07-06: verified to correctly find the target type in TestMod.
         project
-            .SelectDeclarationsWithAttribute(typeof(ONITranslationsAttribute))
-            .AddAspect<ONITranslationsImplementation>();
+            .SelectTypes()
+            .Where(type => type.Name == "MODSTRINGS")
+            .RequireAspect<ONITranslationExtensions>();
     }
 }
