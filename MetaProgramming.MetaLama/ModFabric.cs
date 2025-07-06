@@ -10,8 +10,6 @@ namespace SlippyCheeze.MetaProgramming.MetaLama;
 // consume it at compile time.
 public class ModFabric: TransitiveProjectFabric {
     public override void AmendProject(IProjectAmender project) {
-        Debugger.Break();
-
         // 2025-07-06: verified to correctly find the target type in TestMod.
         project
             .SelectDeclarationsWithAttribute(typeof(ONITranslationsAttribute))
