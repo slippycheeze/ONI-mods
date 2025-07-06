@@ -45,7 +45,7 @@
     <AssemblyFirstpassPublicized>$(SolutionDir)/PublicisedAssembly/Assembly-CSharp-firstpass_public.dll</AssemblyFirstpassPublicized>
   </PropertyGroup>
   
-  <ItemGroup Condition="'$(IsMod)' == 'true'">
+  <ItemGroup Condition="'$(IsMod)' == 'true' or '$(IncludeModReferences)' == 'true'">
     <Reference Include="Assembly-CSharp">
       <!--Publicized version, run "Clean" on the 1_CycleComma project once to generate this-->
       <HintPath>$(AssemblyPublicized)</HintPath>
@@ -129,7 +129,7 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(IsMod)' == 'true'">
+  <ItemGroup Condition="'$(IsMod)' == 'true' or '$(IncludeModReferences)' == 'true'">
     <PackageReference Include="Aze.Publicise.MSBuild.Task" Version="*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

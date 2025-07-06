@@ -138,7 +138,7 @@ DestinationFolder="$(ArchiveTargetFolder)"/>
           BeforeTargets="BeforeResolveReferences"
           Inputs="@(PubliciseAssembliesInputs)"
           Outputs="@(PubliciseAssembliesInputs->'$(SolutionDir)PublicisedAssembly\%(Filename)_public%(Extension)')"
-          Condition="'$(GameLibsFolder)' != '../Lib' and '$(IsMod)' == 'true'"
+          Condition="'$(GameLibsFolder)' != '../Lib' and ('$(IsMod)' == 'true' or '$(IncludeModReferences)' == 'true')"
           >
     <Publicise
         InputAssemblies="@(PubliciseAssembliesInputs)"
@@ -192,12 +192,8 @@ DestinationFolder="$(ArchiveTargetFolder)"/>
           Outputs="@(RefAssemblies->'../Lib/%(Filename)%(Extension)')"
           AfterTargets="Publicise"
           BeforeTargets="BeforeResolveReferences"
-          Condition="'$(GameLibsFolder)' != '../Lib' and '$(RefasmerInstalled)' != '0' and '$(IsMod)' == 'true'">
-    <PropertyGroup>
-      <!--Workaround for paths containing spaces, e.g. "Program Files (x86)"-->
-      <!--For some reason, adding the quotes to GameLibsFolder does not work-->
-      <SaneGameLibsFolder>"$(GameLibsFolder)"</SaneGameLibsFolder>
-    </PropertyGroup>
+          Condition="'$(GameLibsFolder)' != '../Lib' and '$(RefasmerInstalled)' != '0' and ('$(IsMod)' == 'true' or '$(IncludeModReferences)' == 'true')"
+          >
     <ItemGroup>
       <RefAsmerArguments Include="@(RefAssemblies -> '&quot;%(FullPath)&quot;', ' ')" />
     </ItemGroup>

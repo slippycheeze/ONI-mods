@@ -47,15 +47,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PLib" Version="4.17.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MetaProgramming.MetaLama\MetaProgramming.MetaLama.csproj">
-      <Private>False</Private>
-      <PrivateAssets>all</PrivateAssets>
-      <ExcludeAssets>runtime</ExcludeAssets>
-    </ProjectReference>
-    <ProjectReference Include="..\MetaProgramming\MetaProgramming.csproj" />
+    <PackageReference Include="PLib" Version="*" />
   </ItemGroup>
 </Project>
