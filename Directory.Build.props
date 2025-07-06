@@ -44,13 +44,6 @@
     <AssemblyPublicized>$(SolutionDir)/PublicisedAssembly/Assembly-CSharp_public.dll</AssemblyPublicized>
     <AssemblyFirstpassPublicized>$(SolutionDir)/PublicisedAssembly/Assembly-CSharp-firstpass_public.dll</AssemblyFirstpassPublicized>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="PolySharp" Version="1.15.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
   
   <ItemGroup Condition="'$(IsMod)' == 'true'">
     <Reference Include="Assembly-CSharp">
@@ -146,6 +139,13 @@
 
   <ItemGroup Condition="'$(IsPacked)' == 'true'">
     <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PolySharp" Version="*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
