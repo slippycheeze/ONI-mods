@@ -17,6 +17,14 @@
 
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
+
+    <!-- compiler settings and language version roll-forward. -->
+    <LangVersion>preview</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <Nullable>enable</Nullable>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <!-- Mod Info -->

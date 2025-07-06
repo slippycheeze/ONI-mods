@@ -1,6 +1,4 @@
-﻿using SlippyCheeze.MetaProgramming;
-
-namespace SlippyCheeze.TestMod;
+﻿namespace SlippyCheeze.TestMod;
 
 public static partial class MODSTRINGS {
     public static partial class UI {
