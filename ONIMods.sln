@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaProgramming.MetaLama", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMod", "TestMod\TestMod.csproj", "{429F81EF-A6D9-FFE2-7798-4BDD7C446159}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicRateLimiter", "LogicRateLimiter\LogicRateLimiter.csproj", "{6BB2D2DB-FA30-D382-93AF-AF7A26E3B005}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupportCode", "SupportCode\SupportCode.csproj", "{FF5BB3C0-034B-4A37-92E8-58C9E63EEDD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,11 +36,22 @@ Global
 		{429F81EF-A6D9-FFE2-7798-4BDD7C446159}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{429F81EF-A6D9-FFE2-7798-4BDD7C446159}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{429F81EF-A6D9-FFE2-7798-4BDD7C446159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BB2D2DB-FA30-D382-93AF-AF7A26E3B005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BB2D2DB-FA30-D382-93AF-AF7A26E3B005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BB2D2DB-FA30-D382-93AF-AF7A26E3B005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BB2D2DB-FA30-D382-93AF-AF7A26E3B005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF5BB3C0-034B-4A37-92E8-58C9E63EEDD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5BB3C0-034B-4A37-92E8-58C9E63EEDD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5BB3C0-034B-4A37-92E8-58C9E63EEDD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF5BB3C0-034B-4A37-92E8-58C9E63EEDD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C5F639C-7950-495E-BE78-375C8AD71F11}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SupportCode\SupportCode.projitems*{429f81ef-a6d9-ffe2-7798-4bdd7c446159}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
