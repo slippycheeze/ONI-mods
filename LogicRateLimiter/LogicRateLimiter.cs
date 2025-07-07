@@ -1,6 +1,6 @@
 ﻿using KSerialization;
 
-namespace SlippyCheezePersonal.LogicRateLimiter;
+namespace SlippyCheeze.LogicRateLimiter;
 
 [SerializationConfig(MemberSerialization.OptIn)]
 public class LogicRateLimiter: LogicGate, ISingleSliderControl, ISliderControl {

@@ -1,6 +1,6 @@
 ﻿using PeterHan.PLib.Buildings;
 
-namespace SlippyCheezePersonal.LogicRateLimiter;
+namespace SlippyCheeze.LogicRateLimiter;
 
 [HarmonyPatch]
 public partial class LogicRateLimiterConfig: LogicGateBaseConfig {

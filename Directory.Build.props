@@ -28,6 +28,10 @@
     <TargetGameVersion>$(FebruaryQOL_Beta)</TargetGameVersion>
   </PropertyGroup>
 
+  <!-- versioning, forever fixed in place because it super sucks. -->
+  <PropertyGroup>
+    <Version>1.0.0.0</Version>
+  </PropertyGroup>
 
   <!--Copyright notice-->
   <PropertyGroup>

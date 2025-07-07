@@ -1,6 +1,6 @@
 ﻿using static SlippyCheeze.SupportCode.UIStrings;
 
-namespace SlippyCheezePersonal.LogicRateLimiter;
+namespace SlippyCheeze.LogicRateLimiter;
 
 public static partial class MODSTRINGS {
     public static partial class BUILDINGS {

@@ -33,8 +33,8 @@ public class L {
     }
 
     private static Regex pathToLoggingFilenameRegex = new(
-        // "C:/…/src/ONI-personal-mods/SlippyCheezePersonal/obj/Debug/net48/metalama/MoreReservoirs/LiquidWallReservoirConfig.cs"
-        @"/SlippyCheezePersonal/(?:obj/.+/metalama/)?(.+)$",
+        // "C:/…/src/ONI-personal-mods/SlippyCheeze/obj/Debug/net48/metalama/MoreReservoirs/LiquidWallReservoirConfig.cs"
+        @"/SlippyCheeze/(?:obj/.+/metalama/)?(.+)$",
         RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.Compiled
     );
 
@@ -51,7 +51,7 @@ public class L {
     }
 
     private static Regex isInMyNamespaceRegex = new(
-        @"^\ASlippyCheezePersonal(?:[.](SupportCode\b))?$",
+        @"^\ASlippyCheeze(?:[.](SupportCode\b))?$",
         RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.Compiled
     );
 
@@ -117,10 +117,10 @@ public class L {
     }
 
 
-    internal static string WriteLogLine(LogLevel level, string msg, int line, string? path)
+    public static string WriteLogLine(LogLevel level, string msg, int line, string? path)
         => WriteLogLine(level, msg, Caller(path, line));
 
-    internal static string WriteLogLine(LogLevel level, string msg, string caller) {
+    public static string WriteLogLine(LogLevel level, string msg, string caller) {
         // I was going to drop THREAD entirely, but then it turns out the beta for the next
         // expansion runs various code on background threads rather than the Unity main thread!
         // So suddenly they *do* become important.
@@ -147,11 +147,11 @@ public class L {
     // internal const string ERROR = "E";
     // internal const string FATAL = "F";
 
-    internal const LogLevel DEBUG   = LogLevel.DEBUG;
-    internal const LogLevel INFO    = LogLevel.INFO;
-    internal const LogLevel WARNING = LogLevel.WARNING;
-    internal const LogLevel ERROR   = LogLevel.ERROR;
-    internal const LogLevel FATAL   = LogLevel.FATAL;
+    public const LogLevel DEBUG   = LogLevel.DEBUG;
+    public const LogLevel INFO    = LogLevel.INFO;
+    public const LogLevel WARNING = LogLevel.WARNING;
+    public const LogLevel ERROR   = LogLevel.ERROR;
+    public const LogLevel FATAL   = LogLevel.FATAL;
 
     public static string LogLevelForDisplay(LogLevel l) => l switch {
         LogLevel.DEBUG   => "D",

@@ -1,10 +1,6 @@
-﻿using KMod;
+﻿namespace SlippyCheeze.TestMod;
 
-namespace SlippyCheeze.TestMod;
-
-public partial class ModMain: UserMod2 {
-    public override void OnLoad(Harmony harmony) {
-        Console.WriteLine(MODSTRINGS.UI.TEST);
-        Console.WriteLine(MODSTRINGS.UI.TEST_key);
-    }
+public class TestMod {
+    public static void OnModLoaded() {}
+    public static void OnAllModsLoaded(IReadOnlyList<KMod.Mod> mods) { }
 }
