@@ -7,12 +7,12 @@ public static partial class MODSTRINGS {
         public static partial class PREFABS {
             public static partial class LOGICRATELIMITER {
                 public static readonly LocString NAME = "Signal Rate Limiter".AsLink(LogicRateLimiterConfig.ID);
-                public static readonly LocString DESC = $"This gate emits pulses rate-limited {GreenSignal("Green Signals")} while receiving a {GreenSignal()}.  It will not emit another pulse while receiving a {RedSignal()}, and the timeout is not reset when the incoming signal is {RedSignal("Red")}.";
-                public static readonly LocString EFFECT = $"Sends a {GreenSignal()} when it receives a a {GreenSignal()}.  It will then send a {RedSignal()} for the configured time, after which it will pulse {GreenSignal("Green")} again if it is still receiving a {GreenSignal()}.\n\nThe rate-limit is not reset if the incoming signal becomes {RedSignal("Red")}; the gate will {"NEVER".AsKeyWord()} emit {GreenSignal("Green Signals")} faster than the configured rate.";
+                public static readonly LocString DESC = $"This gate pulses rate-limited {GreenSignal("Green Signals")} while receiving a {GreenSignal()}.  If there is an incoming {RedSignal()}, the gate will output a {RedSignal()}; the timeout is not reset when the incoming signal is {RedSignal("Red")}.";
+                public static readonly LocString EFFECT = $"Sends a {GreenSignal()} when it receives a a {GreenSignal()}.  It will then send a {RedSignal()} for the configured time, after which it will pulse {GreenSignal("Green")} again if it is still receiving a {GreenSignal()}.\n\nThe rate-limit is not reset if the incoming signal becomes {RedSignal("Red")}; the gate will {"NEVER".AsKeyWord()} output {GreenSignal("Green Signals")} faster with less than the configured period in seconds between them.";
 
                 public static readonly LocString OUTPUT_NAME     = $"RATE-LIMITED OUTPUT";
                 public static readonly LocString OUTPUT_ACTIVE   = $"Pulses a {GreenSignal()} at the configured interval while receiving a {GreenSignal()} from the input.";
-                public static readonly LocString OUTPUT_INACTIVE = $"Otherwise, sends a {RedSignal()}.  The timeout is <b>NOT</b> reset when a {RedSignal()} is received.";
+                public static readonly LocString OUTPUT_INACTIVE = $"Otherwise, sends a {RedSignal()}.  The timeout is {"NOT".AsKeyWord()} reset when a {RedSignal()} is received.";
             }
         }
     }
