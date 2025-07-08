@@ -67,10 +67,6 @@ public partial class ModMain: UserMod2 {
         CallOnAllModsLoadedHooks(mods);
     }
 
-    // A list of named Type objects which all have a ModPatch attribute, which we will attempt to
-    // load as soon as they are ready.
-    private static readonly List<Type> PendingModPatches = [];
-
     private void TryApplyingAllPatches(Harmony harmony) {
         // OK, so, fun times, but I can't use `harmony.PatchAll()` if I want to be able to delay
         // *some* mods from loading, and the ONI version of Harmony doesn't support the whole
@@ -113,6 +109,9 @@ public partial class ModMain: UserMod2 {
     }
 
 
+    // A list of named Type objects which all have a ModPatch attribute, which we will attempt to
+    // load as soon as they are ready.
+    private static readonly List<Type> PendingModPatches = [];
 
     // hook into KMod DLL loading, so we can trigger harmony processing of a type after the mod it
     // depends on is loaded.
