@@ -12,7 +12,7 @@ using PeterHan.PLib.Buildings;
 namespace SlippyCheeze;
 
 [HarmonyPatch]                  // for our ModPatch helper hooks. :)
-public abstract partial class ModMain: UserMod2 {
+public partial class ModMain: UserMod2 {
     // globally available values, at least as soon as we can possibly supply them.
     public static ModMain Instance = null!;
     public static Harmony Harmony  = null!;
@@ -27,7 +27,8 @@ public abstract partial class ModMain: UserMod2 {
         PUtil.InitLibrary(false);
         BuildingManager = new();
 
-        L.log($"{ModName} is now loading...\n    {ModDescription}");
+        // hand-crafted custom indent with alignment.  go me. :)
+        L.log($"{ModName} is now loading:\n                                       {ModDescription}");
 
         // `base.OnLoad` calls `harmony.PatchAll(this.assembly)`, triggering all Harmony patch
         // processing.  Thankfully, it has done nothing else close enough to forever that I'm OK
