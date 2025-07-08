@@ -1,3 +1,6 @@
+================================================================================
+The code in the repository is under the MIT License:
+
 MIT License
 
 Copyright (c) 2025 Daniel Pittman <daniel@rimspace.net>
@@ -19,3 +22,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+================================================================================
+Some code, notably the original versions of the Directory.* files, is
+
+Copyright (c) 2024 SGT_Imalas
+
+being derived from code in https://github.com/Sgt-Imalas/Sgt_Imalas-Oni-Mods/
+
+
+
+================================================================================
+Some artwork is based on modified versions of the Oxygen Not Included assets
+owned by Klei, and is subject to their license.  Hopefully, since others do
+this, they will be forgiving of what is probably a technical license violation.
