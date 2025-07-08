@@ -375,3 +375,9 @@ FodyWeavers.xsd
 # than have archival versions of the history mod, and I'm not interested in
 # maintaining my own backward or multi-version compatibility.
 *.dll
+
+
+# Ignore my personal mod files; these are not publicly released for various
+# reasons, though what can be public will be.
+/SlippyCheezePersonal/
+/Reference/
