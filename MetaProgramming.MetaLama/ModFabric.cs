@@ -2,6 +2,7 @@
 
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
+using Metalama.Framework.Diagnostics;
 using Metalama.Framework.Fabrics;
 
 using SlippyCheeze.MetaProgramming.Metalama;
@@ -13,11 +14,10 @@ namespace SlippyCheeze.MetaProgramming.MetaLama;
 // consume it at compile time.
 public class ModFabric: TransitiveProjectFabric {
     public override void AmendProject(IProjectAmender project) {
-        var UserMod2 = TypeFactory.GetType("KMod.UserMod2");
-
         // auto-generate static reflection data for the project, attached to the KMod.UserMod2
         // derivative class.  which should always be the SupportCode ModMain.cs, but plan for the
         // future, I guess?
+        var UserMod2 = TypeFactory.GetType("KMod.UserMod2");
         project.SelectTypesDerivedFrom(UserMod2).RequireAspect<ModMainAspect>();
 
 

@@ -2,5 +2,5 @@
 
 public class TestMod {
     public static void OnModLoaded() {}
-    public static void OnAllModsLoaded(IReadOnlyList<KMod.Mod> mods) { }
+    public static void OnAllModsLoaded(IReadOnlyList<KMod.Mod> mods) {}
 }

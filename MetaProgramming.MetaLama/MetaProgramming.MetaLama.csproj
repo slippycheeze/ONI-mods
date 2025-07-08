@@ -44,10 +44,4 @@
   <ItemGroup>
     <ProjectReference Include="..\MetaProgramming\MetaProgramming.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\PublicisedAssembly\Assembly-CSharp_public.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 </Project>
