@@ -11,6 +11,7 @@
     <AssemblyName>SlippyCheeze.TestMod</AssemblyName>
     <RootNamespace>SlippyCheeze.TestMod</RootNamespace>
     <IsMod>true</IsMod>
+    <InstallDevMod>false</InstallDevMod>
     <IsPacked>true</IsPacked>
 
     <GenerateMetadata>true</GenerateMetadata>

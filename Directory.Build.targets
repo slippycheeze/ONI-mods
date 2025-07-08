@@ -52,7 +52,7 @@
   </PropertyGroup>
 
   <!--Copies the mod dll, the two yaml files and everything inside the ModAssets folder to the target mod folder-->
-  <Target Name="CopyModsToDevFolder" AfterTargets="ILRepack" Condition="'$(IsMod)' == 'true'">
+  <Target Name="CopyModsToDevFolder" AfterTargets="ILRepack" Condition="'$(IsMod)' == 'true' and '$(InstallDevMod)' != 'false'">
     <Message Text="Executing CopyDLLs task for '$(AssemblyName)'" Importance="High" />
     <Copy
 	SourceFiles="
