@@ -53,6 +53,4 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LamaDebug|AnyCPU'">
     <WarningsNotAsErrors>Nullable;CS8509;LAMA0066;CS0162</WarningsNotAsErrors>
   </PropertyGroup>
-
-  <Import Project="..\InjectedCode\InjectedCode.projitems" Label="Shared" />
 </Project>

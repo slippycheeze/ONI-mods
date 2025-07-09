@@ -154,4 +154,53 @@
       <IncludeAssets>all</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup Condition="'$(IsMod)' == 'true' or '$(IncludeModReferences)' == 'true'">
+    <!-- other global usings.  whee. -->
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.Reflection" />
+    <Using Include="System.Runtime.CompilerServices" />
+    <Using Include="System.Text.RegularExpressions" />
+    <Using Include="System.Text" />
+
+    <Using Include="HarmonyLib" />
+
+    <Using Include="UnityEngine" />
+
+    <PackageReference Include="Humanizer.Core" Version="*" />
+    <Using Include="Humanizer" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(IsMod)' == 'true'">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)\MetaProgramming.MetaLama\MetaProgramming.MetaLama.csproj">
+      <Private>False</Private>
+      <PrivateAssets>all</PrivateAssets>
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </ProjectReference>
+
+    <ProjectReference Include="$(MSBuildThisFileDirectory)\MetaProgramming\MetaProgramming.csproj" />
+    <Using Include="SlippyCheeze.MetaProgramming" />
+
+    <!-- expose some MSBuild project attributes to the Metalama Compiler -->
+    <CompilerVisibleProperty Include="IsMod;IsPacked;ModName;ModDescription;MinimumSupportedBuild;APIVersion" />
+
+    <!-- all mods get SupportCode merged in, too, but it compile but the once. -->
+    <ProjectReference Include="$(MSBuildThisFileDirectory)\SupportCode\SupportCode.csproj" />
+    <Using Include="SlippyCheeze" />
+    <Using Include="SlippyCheeze.SupportCode" />
+    <Using Include="SlippyCheeze.SupportCode.GlobalHarmonyHelper" Static="true" />
+
+    <!-- and finally, include a copy of the "injected" code; just the ModMain,
+         which we can only have *one* derivative of the Klei base class per DLL,
+         which makes using normal inheritance unfortunately difficulty. :(
+    -->
+    <Compile Include="$(SolutionDir)/InjectedCode/**/*.cs" LinkBase="InjectedCode" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <MetalamaDebugTransformedCode>true</MetalamaDebugTransformedCode>
+    <!-- override MetalamaDebugTransformedCode setting this true by default -->
+    <MetalamaFormatOutput>false</MetalamaFormatOutput>
+    <MetalamaAllowPreviewLanguageFeatures>true</MetalamaAllowPreviewLanguageFeatures>
+  </PropertyGroup>
 </Project>

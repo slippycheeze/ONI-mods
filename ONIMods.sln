@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicRateLimiter", "LogicRa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupportCode", "SupportCode\SupportCode.csproj", "{FF5BB3C0-034B-4A37-92E8-58C9E63EEDD7}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "InjectedCode", "InjectedCode\InjectedCode.shproj", "{C01BA2A8-8826-4AEA-9E82-F618E328AC02}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlippyCheezePersonal", "SlippyCheezePersonal\SlippyCheezePersonal.csproj", "{BA393854-909A-4FBC-40C1-4075A6CA580E}"
 EndProject
 Global
@@ -58,11 +56,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C5F639C-7950-495E-BE78-375C8AD71F11}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		InjectedCode\InjectedCode.projitems*{429f81ef-a6d9-ffe2-7798-4bdd7c446159}*SharedItemsImports = 5
-		InjectedCode\InjectedCode.projitems*{6bb2d2db-fa30-d382-93af-af7a26e3b005}*SharedItemsImports = 5
-		InjectedCode\InjectedCode.projitems*{ba393854-909a-4fbc-40c1-4075a6ca580e}*SharedItemsImports = 5
-		InjectedCode\InjectedCode.projitems*{c01ba2a8-8826-4aea-9e82-f618e328ac02}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
