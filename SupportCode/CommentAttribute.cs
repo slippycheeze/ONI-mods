@@ -1,6 +1,6 @@
 ﻿namespace SlippyCheeze.SupportCode;
 
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false, Inherited = false)]
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = true, Inherited = false)]
 public class CommentAttribute(string comment): Attribute {
     public string Comment => comment;
 }
