@@ -19,6 +19,7 @@ public partial class ModMain: UserMod2 {
 
     // instance values.  not so much available everywhere, but close enough.
     public PBuildingManager BuildingManager = null!;
+    public static void Register(PBuilding building) => ModMain.Instance.BuildingManager.Register(building);
 
     public override void OnLoad(Harmony harmony) {
         Instance = this;    // as early as possible, yo.

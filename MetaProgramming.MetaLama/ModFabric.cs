@@ -1,8 +1,5 @@
-﻿using System.Diagnostics;
-
-using Metalama.Framework.Aspects;
+﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using Metalama.Framework.Diagnostics;
 using Metalama.Framework.Fabrics;
 
 using SlippyCheeze.MetaProgramming.Metalama;
@@ -20,14 +17,6 @@ public class ModFabric: TransitiveProjectFabric {
         var UserMod2 = TypeFactory.GetType("KMod.UserMod2");
         project.SelectTypesDerivedFrom(UserMod2).RequireAspect<ModMainAspect>();
 
-
-        // auto-generate some type-safe helpers for translation string keys and prefixes.
-        project
-            .SelectTypes()
-            .Where(type => type.Name == "MODSTRINGS")
-            .RequireAspect<ONITranslationExtensions>();
-
-
         // automatic application of OnModLoadedHook attribute to any `OnModLoaded` method.
         var possibleHookMethods = project.SelectTypes()
             // exclude anything derived from UserMod2 :)
@@ -41,5 +30,11 @@ public class ModFabric: TransitiveProjectFabric {
         possibleHookMethods
             .Where(method => method.Name == "OnAllModsLoaded")
             .RequireAspect<OnAllModsLoadedHookAspect>();
+
+        // auto-generate some type-safe helpers for translation string keys and prefixes.
+        project
+            .SelectTypes()
+            .Where(type => type.Name == "MODSTRINGS")
+            .RequireAspect<ONITranslationExtensions>();
     }
 }

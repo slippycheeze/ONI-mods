@@ -1,6 +1,5 @@
 ﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using Metalama.Framework.Eligibility;
 
 namespace SlippyCheeze.MetaProgramming.MetaLama;
 

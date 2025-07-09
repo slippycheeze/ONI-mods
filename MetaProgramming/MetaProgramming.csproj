@@ -6,9 +6,10 @@
     <AssemblyName>SlippyCheeze.MetaProgramming</AssemblyName>
     <RootNamespace>SlippyCheeze.MetaProgramming</RootNamespace>
     <IsMod>false</IsMod>
-    <GenerateMetadata>true</GenerateMetadata>
+    <IncludeModReferences>true</IncludeModReferences>
     <IsPacked>false</IsPacked>
 
+    <GenerateMetadata>true</GenerateMetadata>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
 

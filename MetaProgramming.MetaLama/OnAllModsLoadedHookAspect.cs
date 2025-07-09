@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-using Metalama.Framework.Advising;
+﻿using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Eligibility;
@@ -10,8 +8,6 @@ namespace SlippyCheeze.MetaProgramming.Metalama;
 [CompileTime]
 public class OnAllModsLoadedHookAspect: IAspect<IMethod> {
     public void BuildEligibility(IEligibilityBuilder<IMethod> builder) {
-        Debugger.Break();
-
         builder.AddRule(EligibilityRuleFactory.GetAdviceEligibilityRule(AdviceKind.OverrideMethod));
 
         builder.MustBeStatic();
