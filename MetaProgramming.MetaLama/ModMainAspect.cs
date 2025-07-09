@@ -104,45 +104,32 @@ public class ModMainAspect: IAspect<INamedType> {
             );
         }
 
-        {
-            var UserMod2 = TypeFactory.GetType("KMod.UserMod2");
-            var hooks = builder.Target.DeclaringAssembly.AllTypes
-                .Where(type => ! type.IsSubclassOf(UserMod2))
-                .SelectMany(type => type.Methods)
-                .Where(method => method.Name == "OnModLoaded");
+        var ListOfMods = ((INamedType) TypeFactory.GetType(typeof(IReadOnlyList<>)))
+            .WithTypeArguments(TypeFactory.GetType("KMod.Mod"));
+        var UserMod2 = TypeFactory.GetType("KMod.UserMod2");
 
-            // Generate the method that calls all the OnModLoaded hooks
-            builder.IntroduceMethod(
-                nameof(this.CallOnModLoadedHooks),
-                whenExists: OverrideStrategy.Fail,
-                args: new { hooks }
-            );
-        }
+        var allMethods = builder.Target.DeclaringAssembly.AllTypes
+            // specifically exclude methods on a subclass of UserMod2, which is to say, exclude the
+            // methods on the class that Klei treat as the entry point to the mod, and nothing else.
+            .Where(type => !type.IsSubclassOf(UserMod2))
+            .SelectMany(type => type.Methods);
 
-        {
-            var ListOfMods = ((INamedType) TypeFactory.GetType(typeof(IReadOnlyList<>)))
-                .WithTypeArguments(TypeFactory.GetType("KMod.Mod"));
+        // Generate the method that calls all the OnModLoaded hooks
+        builder.IntroduceMethod(
+            nameof(this.CallOnModLoadedHooks),
+            whenExists: OverrideStrategy.Fail,
+            args: new { hooks = allMethods.Where(method => method.Name == "OnModLoaded") }
+        );
 
-            var UserMod2 = TypeFactory.GetType("KMod.UserMod2");
-
-            var hooks = builder.Target.DeclaringAssembly.AllTypes
-                .Where(type => {
-                    bool result = ! type.IsSubclassOf(UserMod2);
-                    return result;
-                        })
-                .SelectMany(type => type.Methods)
-                .Where(method => method.Name == "OnAllModsLoaded");
-
-            // Generate the method that calls all the OnModLoaded hooks
-            builder.IntroduceMethod(
-                nameof(this.CallOnAllModsLoadedHooks),
-                whenExists: OverrideStrategy.Fail,
-                args: new { hooks },
-                buildMethod: m => {
-                    m.Parameters["mods"].Type = ListOfMods;
-                }
-            );
-        }
+        // Generate the method that calls all the OnModLoaded hooks
+        builder.IntroduceMethod(
+            nameof(this.CallOnAllModsLoadedHooks),
+            whenExists: OverrideStrategy.Fail,
+            args: new { hooks = allMethods.Where(method => method.Name == "OnAllModsLoaded") },
+            buildMethod: (m) => {
+                m.Parameters["mods"].Type = ListOfMods;
+            }
+        );
     }
 
     // CallOnModLoadedHooks: generate code to call each hook sequentially, with appropriate logging
@@ -179,7 +166,8 @@ public class ModMainAspect: IAspect<INamedType> {
         init.AppendVerbatim("[\n");
 
         foreach (var itype in itypes) {
-            init.AppendVerbatim("    ");  // YOLO, I guess. :)
+            // mildly nicer code formatting for easier meta-debugging when I read it. :)
+            init.AppendVerbatim("    ");
             init.AppendExpression(itype.ToTypeOfExpression());
             init.AppendVerbatim(",\n");
         }
