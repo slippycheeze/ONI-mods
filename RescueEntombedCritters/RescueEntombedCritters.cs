@@ -103,8 +103,9 @@ public class EntombedCritterMonitor: StateMachineComponent<EntombedCritterMonito
 
             this.entombed
                 .Transition(normal, smi => !smi.IsEntombed(), UpdateRate.SIM_4000ms)
+                .TagTransition(GameTags.Creatures.Bagged, this.bagged)
                 .Enter("AutomaticallyRescue", smi => smi.AutomaticallyRescue())
-                .DoNotification(
+                .ToggleNotification(
                     smi => new Notification(
                         MODSTRINGS.MISC.NOTIFICATIONS.ENTOMBEDCRITTER.NAME,
                         NotificationType.BadMinor,
