@@ -33,8 +33,9 @@ public class L {
     }
 
     private static Regex pathToLoggingFilenameRegex = new(
-        // "C:/…/src/ONI-personal-mods/SlippyCheeze/obj/Debug/net48/metalama/MoreReservoirs/LiquidWallReservoirConfig.cs"
-        @"/SlippyCheeze/(?:obj/.+/metalama/)?(.+)$",
+        // "C:/…/ONI-mods/MakeThingsUserNamable/MakeThingsUserNamable.cs"
+        // "ONI-mods/SlippyCheezePersonal/obj/Debug/net48/metalama/StoragePod/FreezerPodConfig.cs"
+        @"/ONI-mods/(?:.+/obj/.+/metalama/)?(.+)$",
         RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.Compiled
     );
 
