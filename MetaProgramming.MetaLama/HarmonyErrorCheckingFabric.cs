@@ -12,7 +12,16 @@ public class HarmonyErrorCheckingFabric: TransitiveProjectFabric {
         // I occasionally mess up, and forget to mark a Harmony patch method as static, which really
         // rather hurts and all that.  So, easy enough to add some error checking with MetaLama,
         // turning that into a much more pleasant compiler error, not runtime throw.
+        var HarmonyAttribute = TypeFactory.GetType("HarmonyLib.HarmonyAttribute");
         var HarmonyPatch = TypeFactory.GetType("HarmonyLib.HarmonyPatch");
+
+        // check for missing HarmonyPatch annotation on a class that contains HarmonyPatch
+        // annotated methods!
+        project
+            .SelectTypes()
+            .Where(type => ! type.Attributes.Any(HarmonyPatch))
+            .Where(type => type.Methods.Any(m => m.Attributes.Any(HarmonyAttribute)))
+            .ReportDiagnostic(type => CompileError.MissingHarmonyPatchOnClass.WithArguments(type.FullName));
 
         var methods = project
             .SelectTypes()
@@ -35,8 +44,11 @@ public class HarmonyErrorCheckingFabric: TransitiveProjectFabric {
             "Cleanup", "TargetMethod", "TargetMethods", "Prefix", "Postfix", "Finalizer", "Transpiler"
         ];
 
-        foreach (string Name in simpleChecks)
-            methods.HarmonyMethods(Name).Where(m => !m.IsStatic).ReportDiagnostic(IsNotStaticError($"Harmony{Name}"));
+        foreach (string Name in simpleChecks) {
+            var check = methods.HarmonyMethods(Name);
+
+            check.Where(m => !m.IsStatic).ReportDiagnostic(IsNotStaticError($"Harmony{Name}"));
+        }
     }
 
     private Func<IMethod, IDiagnostic> IsNotStaticError(string name)
