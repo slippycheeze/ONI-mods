@@ -105,6 +105,7 @@ public partial class ModMain: UserMod2 {
 
 
     private static bool ApplyHarmonyPatchesFrom(Type type) {
+        L.log($"Applying HarmonyPatch from Type {type.FullName}");
         ModMain.Harmony.CreateClassProcessor(type).Patch();
         return true;
     }
