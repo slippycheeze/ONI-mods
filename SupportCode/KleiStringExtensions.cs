@@ -13,4 +13,5 @@ public static partial class KleiStringExtensions {
     // sadly, need to be explicit here, or the extension function won't match. :(
     public static string StripLinkFormatting(this StringEntry target) => STRINGS.UI.StripLinkFormatting(target);
     public static string StripLinkFormatting(this LocString target)   => STRINGS.UI.StripLinkFormatting(target);
+    public static string StripLinkFormatting(this string target)      => STRINGS.UI.StripLinkFormatting(target);
 }
