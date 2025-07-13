@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- General Package Properties -->
+  <PropertyGroup>
+    <PackageId>SlippyCheeze.DeveloperHelpers</PackageId>
+
+    <!-- Mod Info -->
+    <ModName>Developer Helpers</ModName>
+    <ModDescription>Various mod development related runtime ... things</ModDescription>
+    <MinimumSupportedBuild>$(TargetGameVersion)</MinimumSupportedBuild>
+    <APIVersion>2</APIVersion>
+  </PropertyGroup>
+
+  <!-- Build Properties -->
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <AssemblyName>SlippyCheeze.DeveloperHelpers</AssemblyName>
+    <RootNamespace>SlippyCheeze.DeveloperHelpers</RootNamespace>
+    <IsMod>true</IsMod>
+    <IsPacked>true</IsPacked>
+
+    <GenerateMetadata>true</GenerateMetadata>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
+
+    <!-- compiler settings and language version roll-forward. -->
+    <LangVersion>preview</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <Nullable>enable</Nullable>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutDir>bin</OutDir>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>Nullable;CS8509;LAMA0066;CS0162</WarningsNotAsErrors>
+    <NoWarn>1701;1702;CS8524</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>Nullable;CS8509;LAMA0066;CS0162</WarningsNotAsErrors>
+    <NoWarn>1701;1702;CS8524</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LamaDebug|AnyCPU'">
+    <WarningsNotAsErrors>Nullable;CS8509;LAMA0066;CS0162</WarningsNotAsErrors>
+  </PropertyGroup>
+</Project>

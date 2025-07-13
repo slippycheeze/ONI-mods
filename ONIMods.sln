@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrochipsOnSolderingStatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RescueEntombedCritters", "RescueEntombedCritters\RescueEntombedCritters.csproj", "{DE7D5EED-CB4B-06C3-E28D-D980DA40A6E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveloperHelpers", "DeveloperHelpers\DeveloperHelpers.csproj", "{6FA05518-07A8-C3F1-79B8-36AA6A75FAF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{DE7D5EED-CB4B-06C3-E28D-D980DA40A6E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE7D5EED-CB4B-06C3-E28D-D980DA40A6E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE7D5EED-CB4B-06C3-E28D-D980DA40A6E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA05518-07A8-C3F1-79B8-36AA6A75FAF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA05518-07A8-C3F1-79B8-36AA6A75FAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA05518-07A8-C3F1-79B8-36AA6A75FAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA05518-07A8-C3F1-79B8-36AA6A75FAF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
