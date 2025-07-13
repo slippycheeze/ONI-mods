@@ -52,7 +52,7 @@ public class L {
     }
 
     private static Regex isInMyNamespaceRegex = new(
-        @"^\ASlippyCheeze(?:[.](SupportCode\b))?$",
+        @"^SlippyCheeze\b([.]SupportCode\b)?",
         RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.Compiled
     );
 
