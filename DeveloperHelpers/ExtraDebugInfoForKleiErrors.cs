@@ -40,6 +40,5 @@ internal static class ExtraDebugInfoForKleiErrors {
             new(OpCodes.Ldarg_0),  // GameObject go
             CodeInstruction.CallClosure(static (string msg, GameObject go) => $"{go.PrefabID()}: {msg}")
         )
-        .DumpInstructionsToLog()
     );
 }
