@@ -16,9 +16,11 @@ public static class KleiExtensions {
     public static string FormattedTemperature(this float temperature) => GameUtil.GetFormattedTemperature(temperature);
 
 
+    // According to Peter Han, Unity `TryGetComponent` is faster than `GetComponent is null`, so
+    // lets respect that and take advantage.
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool HasComponent<T>(this GameObject go) where T: Component
-        => go.GetComponent<T>() is not null;
+        => go.TryGetComponent<T>(out T _);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool HasComponent<T>(this Component cmp) where T: Component
@@ -32,7 +34,8 @@ public static class KleiExtensions {
     }
 
 
-    public static IEnumerable<int> CavityCells(this Room room) => room?.cavity?.CavityCells() ?? [];
+    private static int[] noCellsInCavity = [];
+    public static IEnumerable<int> CavityCells(this Room room) => room?.cavity?.CavityCells() ?? noCellsInCavity;
     public static IEnumerable<int> CavityCells(this CavityInfo cavity) {
         RoomProber prober = Game.Instance.roomProber;
         for (int y = cavity.minY; y <= cavity.maxY; y++) {
