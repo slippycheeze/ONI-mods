@@ -27,7 +27,7 @@ public partial class LogicRateLimiterConfig: LogicGateBaseConfig {
     };
 
     public override BuildingDef CreateBuildingDef() {
-        L.debug($"CreateBuildingDef({ID}) called");
+        // L.debug($"CreateBuildingDef({ID}) called");
         return CreateBuildingDef(ID, "logic_rate_limiter_kanim", width: 2, height: 1);
     }
 

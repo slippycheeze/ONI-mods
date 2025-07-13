@@ -95,7 +95,7 @@ public class LogicRateLimiter: LogicGate, ISingleSliderControl, ISliderControl {
         set {
             value = value.Clamp(0f, 1f);
             if (field != value) {
-                L.debug($"meterPosition: {field} => {value}");
+                // L.debug($"meterPosition: {field} => {value}");
                 field = value;
                 countdown.SetPositionPercent(value);
             }
@@ -181,7 +181,7 @@ public class LogicRateLimiter: LogicGate, ISingleSliderControl, ISliderControl {
     public override void LogicTick() {
         base.LogicTick();       // not that they do anything, but...
 
-        L.debug($"state={state} delayTicksRemaining={delayTicksRemaining}");
+        // L.debug($"state={state} delayTicksRemaining={delayTicksRemaining}");
 
         if (delayTicksRemaining > 0)
             delayTicksRemaining -= 1;
@@ -243,7 +243,7 @@ public class LogicRateLimiter: LogicGate, ISingleSliderControl, ISliderControl {
         // cache the last value, so we can use it to set our output later, if appropriate.
         lastInputValue = value;
 
-        L.debug($"value={value} state={state} outputValueOne={outputValueOne}");
+        // L.debug($"value={value} state={state} outputValueOne={outputValueOne}");
 
         // If we are ready, this sends a signal on the output line too.
         if (value != 0 && state == State.Ready)
