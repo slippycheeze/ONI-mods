@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "order": 0,
+  "icon": "oni-icon.png",
+  "symbolInfo": [
+    {
+      "id": "ModName",
+      "name": { "text": "The human-readable name of the ONI mod." },
+      "isVisible": true
+    },
+    {
+      "id": "ModDescription",
+      "name": { "text": "What the mod does.  Use spaces, one line only." },
+      "isVisible": true
+    }
+  ]
+}

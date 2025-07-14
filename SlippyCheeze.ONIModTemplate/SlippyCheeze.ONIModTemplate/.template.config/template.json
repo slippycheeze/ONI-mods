@@ -1,0 +1,54 @@
+﻿{
+  "$schema": "http://json.schemastore.org/template",
+
+  "author":           "SlippyCheeze",
+  "name":             "Oxygen Not Included / ONI Mod Template for SlippyCheeze",
+  "description":      "New Project template for my personal ONI mod building infrastructure.",
+  "identity":         "SlippyCheeeze.ONIModTemplate",
+  "shortName":        "onimod",
+  "classifications":  ["ONI", "Template", "Mod"],
+
+  "tags": {
+    "type":      "project",
+    "language":  "C#"
+  },
+
+  "preferNameDirectory": true,
+  "sourceName": "SlippyCheeze.ONIModTemplate",
+
+  "symbols": {
+    "PackageId": {
+      "type":           "derived",
+      "description":    "internal PackageId, AssemblyName, etc.  Derived from the project name.",
+      "valueSource":    "name",
+      "valueTransform": "ProjectNameToPackageId",
+      "replaces":       "PackageIdParameter"
+    },
+
+    "ModName": {
+      "type":           "derived",
+      "description":    "Human-readable mod name.  Derived from the project name.",
+      "valueSource":    "name",
+      "valueTransform": "ProjectNameToModName",
+      "replaces":       "ModNameParameter"
+    },
+
+    "ModDescription": { 
+      "type":           "parameter",
+      "description":    "Human-readable mod description.  Use spaces, one line only.",
+      "datatype":       "text",
+      "isRequired":     true,
+      "replaces":       "ModDescriptionParameter"
+    }
+  },
+
+  "forms": {
+    "ProjectNameToPackageId": { "identifier": "replace", "pattern": "^", "replacement": "SlippyCheeze." },
+
+    "ProjectNameToModName":  { "identifier": "chain", "steps": ["kebabCase", "splitOnDash", "titleCase"] },
+
+    "kebabCase":             { "identifier": "kebabCase" },
+    "splitOnDash":           { "identifier": "replace", "pattern": "-+", "replacement": " " },
+    "titleCase":             { "identifier":  "titleCase" }
+  }
+}

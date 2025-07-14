@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RescueEntombedCritters", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveloperHelpers", "DeveloperHelpers\DeveloperHelpers.csproj", "{6FA05518-07A8-C3F1-79B8-36AA6A75FAF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlippyCheeze.ONIModTemplate", "SlippyCheeze.ONIModTemplate\SlippyCheeze.ONIModTemplate.csproj", "{CD9C002E-DBCF-1987-6ADD-AE2752711D8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{6FA05518-07A8-C3F1-79B8-36AA6A75FAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FA05518-07A8-C3F1-79B8-36AA6A75FAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FA05518-07A8-C3F1-79B8-36AA6A75FAF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD9C002E-DBCF-1987-6ADD-AE2752711D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD9C002E-DBCF-1987-6ADD-AE2752711D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD9C002E-DBCF-1987-6ADD-AE2752711D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD9C002E-DBCF-1987-6ADD-AE2752711D8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

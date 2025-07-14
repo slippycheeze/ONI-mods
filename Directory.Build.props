@@ -148,7 +148,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(PackageType)' != 'Template'">
     <PackageReference Include="PolySharp" Version="*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>all</IncludeAssets>

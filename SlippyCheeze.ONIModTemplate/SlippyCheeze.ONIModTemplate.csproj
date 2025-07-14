@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageType>Template</PackageType>
+    <PackageVersion>1.0.0</PackageVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <PackageId>SlippyCheeze.ONIModTemplate</PackageId>
+    <RootNamespace>SlippyCheeze.ONIModTemplate</RootNamespace>
+
+    
+    <Title>Oxygen Not Included / ONI Mod Template</Title>
+    <Description>Oxygen Not Included / ONI Mod Template for my ONI mod infrastructure</Description>
+    <PackageTags>ONI;Mod;Template</PackageTags>
+    <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+
+
+    <!-- auto-generate the nuget package on build, yay! -->
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>$(SolutionDir)nuget</PackageOutputPath>
+    <!-- essentially a work-around for buggy VS2022 FastUpToDateCheck ignoring content-only changes -->
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+
+
+
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+
+    <NuGetAuditMode>all</NuGetAuditMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Pack="true" Include="SlippyCheeze.ONIModTemplate/**/*" Exclude="SlippyCheeze.ONIModTemplate/**/bin/**;SlippyCheeze.ONIModTemplate/**/obj/**" />
+
+    <Compile Remove="**/*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SlippyCheeze.ONIModTemplate" />
+  </ItemGroup>
+</Project>
