@@ -5,12 +5,11 @@ using System.Diagnostics;
 
 using KMod;
 
-using PeterHan.PLib.Core;
 using PeterHan.PLib.Buildings;
+using PeterHan.PLib.Core;
 
 
 namespace SlippyCheeze;
-
 [HarmonyPatch]                  // for our ModPatch helper hooks. :)
 public partial class ModMain: UserMod2 {
     // globally available values, at least as soon as we can possibly supply them.
@@ -23,7 +22,7 @@ public partial class ModMain: UserMod2 {
 
     public override void OnLoad(Harmony harmony) {
         Instance = this;    // as early as possible, yo.
-        Harmony  = harmony;
+        Harmony = harmony;
 
         PUtil.InitLibrary(false);
         BuildingManager = new();
@@ -124,6 +123,6 @@ public partial class ModMain: UserMod2 {
         var mods = Global.Instance.modManager.mods
             .Where(mod => (mod.loaded_content & KMod.Content.DLL) != 0);
 
-       PendingModPatches.RemoveAll(type => type.ModPatchReady(mods) && ApplyHarmonyPatchesFrom(type));
+        PendingModPatches.RemoveAll(type => type.ModPatchReady(mods) && ApplyHarmonyPatchesFrom(type));
     }
 }
