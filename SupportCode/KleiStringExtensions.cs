@@ -10,6 +10,8 @@ public static partial class KleiStringExtensions {
 
     public static string AsPositiveModifier(this string text) => FormatAsPositiveModifier(text);
 
+    public static string ExtractLinkID(this string target) => STRINGS.UI.ExtractLinkID(target);
+
     // sadly, need to be explicit here, or the extension function won't match. :(
     public static string StripLinkFormatting(this StringEntry target) => STRINGS.UI.StripLinkFormatting(target);
     public static string StripLinkFormatting(this LocString target)   => STRINGS.UI.StripLinkFormatting(target);
