@@ -3,10 +3,9 @@
   <Import Condition=" !Exists('Directory.Build.props.user') " Project="Directory.Build.props.default" />
   <Import Condition=" Exists('Directory.Build.props.user') " Project="Directory.Build.props.user" />
 
-  <!-- most recent VS2022 update makes this ... less optional. -->
+  <!-- most recent VS2022 update makes this ... less optional.  and it doesn't work with ILRepack. -->
   <PropertyGroup>
-    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
-    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <AccelerateBuildsInVisualStudio>false</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
 
   <PropertyGroup>
