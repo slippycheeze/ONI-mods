@@ -4,7 +4,10 @@ namespace SlippyCheeze.DeveloperHelpers;
 
 [HarmonyPatch]
 internal static partial class DumpGameDatabases {
-    private static JsonSerializerSettings serializerSettings = new() { Formatting = Formatting.Indented };
+    private static JsonSerializerSettings serializerSettings = new() {
+        Formatting            = Formatting.Indented,
+        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+    };
     private static JsonSerializer json => field ??= JsonSerializer.Create(serializerSettings);
 
     private static string DatabaseRoot {
@@ -23,6 +26,7 @@ internal static partial class DumpGameDatabases {
     }
 
     public static void DumpDatabaseInternal(string name, object db) {
+        L.debug($"Dumping database {name}: starting...");
         string basepath = Path.Combine(DatabaseRoot, $"{name}");
         string path     = basepath + ".json";
         string newpath  = basepath + ".new.json";
@@ -31,6 +35,7 @@ internal static partial class DumpGameDatabases {
         using (StreamWriter stream = File.CreateText(newpath)) {
             json.Serialize(stream, db);
         }
+        L.debug($"Dumping database {name}: finished serializing, updating output file...");
 
         bool createBackup = true;
 
@@ -52,17 +57,25 @@ internal static partial class DumpGameDatabases {
 
         // if the file didn't exist before, it does now, so `File.Replace` can work correctly.
         File.Replace(newpath, path, createBackup ? prevpath : null);
+        L.debug($"Dumping database {name}: complete.");
     }
 
-    private static void DumpDatabase(object db, [CallerArgumentExpression(nameof(db))] string? name = null)
-        => GameScheduler.Instance.ScheduleNextFrame(
-            nameof(DumpDatabase),
-            (_) => DumpDatabaseInternal(
+    private static void DumpDatabase(object db, [CallerArgumentExpression(nameof(db))] string? name = null) {
+        if (GameScheduler.Instance is not null) {
+            GameScheduler.Instance.ScheduleNextFrame(
+                nameof(DumpDatabase),
+                (_) => DumpDatabaseInternal(
+                    name ?? throw new ArgumentNullException($"{db.GetType().FullName} null CallerArgumentExpression"),
+                    db   ?? throw new ArgumentNullException($"{db} null in DumpDatabase")
+                )
+            );
+        } else {
+            DumpDatabaseInternal(
                 name ?? throw new ArgumentNullException($"{db.GetType().FullName} null CallerArgumentExpression"),
-                db
-            )
-        );
-
+                db   ?? throw new ArgumentNullException($"{db} null in DumpDatabase")
+            );
+        }
+    }
 
 
     [HarmonyPatch(typeof(Immigration), nameof(Immigration.OnPrefabInit))]
@@ -77,4 +90,9 @@ internal static partial class DumpGameDatabases {
         ),
         "Assets.Sprites"
     );
+
+    [HarmonyPatch(typeof(ComplexRecipeManager), nameof(ComplexRecipeManager.PostProcess))]
+    [HarmonyPostfix]
+    public static void DumpComplexRecipes(ComplexRecipeManager __instance)
+        => DumpDatabase(__instance.recipes, "ComplexRecipeManager.recipes");
 }
