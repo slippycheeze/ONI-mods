@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Threading;
 
+using SlippyCheeze.SupportCode.LogErrorNotifier;
+
 namespace SlippyCheeze.SupportCode;
 
 
@@ -129,13 +131,8 @@ public class L {
 
         string time = System.DateTime.Now.ToString("HH:mm:ss.ffff");
 
-#if DISABLED
-        // 2025-07-06: This is a hook used by my private utility, which displays some log messages
-        // as in-game notifications.  Since I'm not releasing that publicly yet, I'll just disable
-        // the hook in the public version of the code.
         if (level >= WARNING)
-            LogErrorNotifier.Add(time, level, thread, caller, msg);
-#endif
+            RemoteLogListener.OnLogMessage(time, level, thread, caller, msg);
 
         string text = $"{thread} SC:{LogLevelForDisplay(level)} {caller}] {msg}";
         Console.WriteLine($"{time} {text}");

@@ -28,7 +28,10 @@ public partial class ModMain: UserMod2 {
         BuildingManager = new();
 
         // hand-crafted custom indent with alignment.  go me. :)
-        L.log($"{ModName} is now loading:\n                                       {ModDescription}");
+        L.log($"{ModName} is now loading:\n    {ModDescription}");
+
+        // Register LogErrorNotifier with PLib before anything calls a serious log method.
+        L.log($"RemoteLogListener.Version {SlippyCheeze.SupportCode.LogErrorNotifier.RemoteLogListener.Instance.Version}");
 
         // `base.OnLoad` calls `harmony.PatchAll(this.assembly)`, triggering all Harmony patch
         // processing.  Thankfully, it has done nothing else close enough to forever that I'm OK
