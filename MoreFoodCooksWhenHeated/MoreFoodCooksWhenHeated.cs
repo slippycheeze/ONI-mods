@@ -8,97 +8,115 @@ public static partial class MoreFoodCooksWhenHeated {
     // of one temperature for all...
     public const float CookingTemperature = Constants.CELSIUS2KELVIN + 71;
 
-    // raw, cooked
-    public static Dictionary<string, string> Recipes = new() {
-        // ==================== Electric Grill ====================
-        // Mush Fry
-        {MushBarConfig.ID,              FriedMushBarConfig.ID},
-        // Gristle Berry
-        {PrickleFruitConfig.ID,         GrilledPrickleFruitConfig.ID},
-        // Fried Mushroom
-        {MushroomConfig.ID,             FriedMushroomConfig.ID},
-        // Omelette — this is in base game, but my code won't duplicate the comp.
-        {RawEggConfig.ID,               CookedEggConfig.ID},
-        // Barbeque
-        {MeatConfig.ID,                 CookedMeatConfig.ID},
-        // Cooked Seafood - both of 'em
-        {FishMeatConfig.ID,             CookedFishConfig.ID},
-        {ShellfishMeatConfig.ID,        CookedFishConfig.ID},
-        // Swampy Delights
-        {SwampFruitConfig.ID,           SwampDelightsConfig.ID},
-        // Roast Grubfruit Nut
-        {WormBasicFruitConfig.ID,       WormBasicFoodConfig.ID},
-        // Pikeapple Skewers
-        {HardSkinBerryConfig.ID,        CookedPikeappleConfig.ID},
-        // Toasted Mimillet, yup, the recipe wants the seed, directly.
-        {ButterflyPlantConfig.SEED_ID,  ButterflyFoodConfig.ID},
+    public record struct CookingResult(string stationID, string rawID, string cookedID, float Temperature = CookingTemperature) {
+        public bool Exists => Raw is not null && Cooked is not null && Recipe is not null;
 
-        // ====================     Smoker     ====================
-        //
-        // Note: only adding things that don't have an Electric Grill recipe.
-        //
-        // Also, I'm ... less certain I want this, but OTOH, I /do/ want DinosaurMeat to auto-cook
-        // somehow, because that makes sense to me, so...
+        public FoodInfo Raw    => EdiblesManager.GetFoodInfo(rawID);
+        public FoodInfo Cooked => EdiblesManager.GetFoodInfo(cookedID);
 
-        // Tough Meat -> Tender Brisket
-        {DinosaurMeatConfig.ID,         SmokedDinosaurMeatConfig.ID},
-        // Vegie Poppers, from Sweatcorn, which hasn't an Electric Grill recipe.
-        {GardenFoodPlantFoodConfig.ID,  SmokedVegetablesConfig.ID},
-    };
+        public GameObject RawPrefab    => Assets.GetPrefab(rawID);
+        public GameObject CookedPrefab => Assets.GetPrefab(cookedID);
+
+        public string RecipeID => ComplexRecipeManager.MakeRecipeID(
+            stationID, [new(rawID, 0)], [new(cookedID, 0)]
+        );
+
+        // NOTE: DO **NOT** USE `WhateverConfig.recipe`, since Klei overwrite the
+        // CookedMeatConfig.recipe value with the CookedFishConfig recipe due to programmer error,
+        // and obvs they don't depend on them being correct since they didn't fix it.
+        public ComplexRecipe Recipe => ComplexRecipeManager.Get().GetRecipe(RecipeID);
+
+        public float CookedMassPerRawKG {
+            get {
+                var recipe = Recipe;
+                return recipe.results[0].amount / recipe.ingredients[0].amount;
+            }
+        }
+    }
+
+    // only used during initialization, so no need to hold this persistently in memory forever.
+    public static IEnumerable<CookingResult> CookingResults =>
+        ((CookingResult[])[
+            // ==================== Electric Grill ====================
+            // Mush Fry
+            new(CookingStationConfig.ID,    MushBarConfig.ID,               FriedMushBarConfig.ID),
+            // Gristle Berry
+            new(CookingStationConfig.ID,    PrickleFruitConfig.ID,          GrilledPrickleFruitConfig.ID),
+            // Fried Mushroom
+            new(CookingStationConfig.ID,    MushroomConfig.ID,              FriedMushroomConfig.ID),
+            // Omelette — this is in base game, but my code won't duplicate the comp.
+            new(CookingStationConfig.ID,    RawEggConfig.ID,                CookedEggConfig.ID),
+            // Barbeque
+            new(CookingStationConfig.ID,    MeatConfig.ID,                  CookedMeatConfig.ID),
+            // Cooked Seafood - both of 'em
+            new(CookingStationConfig.ID,    FishMeatConfig.ID,              CookedFishConfig.ID),
+            new(CookingStationConfig.ID,    ShellfishMeatConfig.ID,         CookedFishConfig.ID),
+            // Swampy Delights
+            new(CookingStationConfig.ID,    SwampFruitConfig.ID,            SwampDelightsConfig.ID),
+            // Roast Grubfruit Nut
+            new(CookingStationConfig.ID,    WormBasicFruitConfig.ID,        WormBasicFoodConfig.ID),
+            // Pikeapple Skewers
+            new(CookingStationConfig.ID,    HardSkinBerryConfig.ID,         CookedPikeappleConfig.ID),
+            // Toasted Mimillet, yup, the recipe wants the seed, directly.
+            new(CookingStationConfig.ID,    ButterflyPlantConfig.SEED_ID,   ButterflyFoodConfig.ID),
+
+            // ====================     Smoker     ====================
+            //
+            // Note: only adding things that don't have an Electric Grill recipe.
+            //
+            // Also, I'm ... less certain I want this, but OTOH, I /do/ want DinosaurMeat to auto-cook
+            // somehow, because that makes sense to me, so...
+
+            // Tough Meat -> Tender Brisket
+            new(SmokerConfig.ID,            DinosaurMeatConfig.ID,          SmokedDinosaurMeatConfig.ID),
+            // Vegie Poppers, from Sweatcorn, which hasn't an Electric Grill recipe.
+            new(SmokerConfig.ID,            GardenFoodPlantFoodConfig.ID,   SmokedVegetablesConfig.ID),
+        ])
+        .Where(item => item.Exists);
+
 
     [HarmonyPatch(typeof(EntityConfigManager), nameof(EntityConfigManager.LoadGeneratedEntities))]
     [HarmonyPostfix]
     public static void AddTemperatureCookableToEntities() {
-        foreach (var (rawID, cookedID) in Recipes) {
-            // just in case I release, and someone is running without one of the DLC
-            if (Assets.TryGetPrefab(rawID) is not GameObject raw)
-                continue;
-            if (raw.TryGetComponent<TemperatureCookable>(out var existing)) {
-                L.debug($"{rawID} is already TemperatureCookable, to {existing.cookedID} (same? {existing.cookedID == cookedID})");
-                continue;       // someone already set us up the cooking path.
+        foreach (var result in CookingResults) {
+            if (result.RawPrefab.TryGetComponent<TemperatureCookable>(out TemperatureCookable existing)) {
+                if (existing.cookedID != result.cookedID) {
+                    L.debug($"{result.rawID} is already TemperatureCookable, to {existing.cookedID} instead of {result.cookedID}");
+                    continue;       // someone already set us up the cooking path.
+                }
+
+                UnityEngine.Object.Destroy(existing);  // buh-bye.  don't want you any longer.
             }
 
-            if (Assets.TryGetPrefab(cookedID) is not GameObject cooked)
-                continue;
-
             // we have both entities, so we can convert one to the other automatically.
-            var cookable = raw.AddComponent<TemperatureCookable>();
-            cookable.cookTemperature = CookingTemperature;
-            cookable.cookedID        = cookedID;
+            var cookable = result.RawPrefab.AddComponent<ImprovedTemperatureCookable>();
+            cookable.cookTemperature      = result.Temperature;
+            cookable.cookedID             = result.cookedID;
+            cookable.cookedMassMultiplier = result.CookedMassPerRawKG;
         }
     }
 
     [HarmonyPatch(typeof(CodexEntryGenerator), nameof(CodexEntryGenerator.GenerateFoodEntries))]
     [HarmonyPostfix]
     public static void AddTemperatureCookableCodexInfoToFoods(Dictionary<string, CodexEntry> __result) {
-        foreach (var (rawID, cookedID) in Recipes) {
-            if (EdiblesManager.GetFoodInfo(rawID) is not FoodInfo raw) {
-                L.error($"Can't find FoodInfo for {rawID}");
-                continue;
-            }
-
-            if (EdiblesManager.GetFoodInfo(cookedID) is not FoodInfo cooked) {
-                L.error($"Can't find FoodInfo for {cookedID}");
-                continue;
-            }
-
+        foreach (var result in CookingResults) {
             // Mushroom: "Applications" => ELEMENTCONSUMEDBY
-            if (__result.TryGetValue(rawID, out CodexEntry rawEntry)) {
-                InsertSectionInto(rawEntry, STRINGS.CODEX.HEADERS.ELEMENTCONSUMEDBY, raw, cooked, CookingTemperature);
+            if (__result.TryGetValue(result.rawID, out CodexEntry rawEntry)) {
+                InsertSectionInto(rawEntry, STRINGS.CODEX.HEADERS.ELEMENTCONSUMEDBY, result);
             } else {
-                L.debug($"unexpectedly missing Food CodexEntry {rawID}");
+                L.debug($"unexpectedly missing Food CodexEntry {result.rawID}");
             }
 
             // Fried Mushroom: "Produced By" => ELEMENTPRODUCEDBY
-            if (__result.TryGetValue(cookedID, out CodexEntry cookedEntry)) {
-                InsertSectionInto(cookedEntry, STRINGS.CODEX.HEADERS.ELEMENTPRODUCEDBY, raw, cooked, CookingTemperature);
+            if (__result.TryGetValue(result.cookedID, out CodexEntry cookedEntry)) {
+                InsertSectionInto(cookedEntry, STRINGS.CODEX.HEADERS.ELEMENTPRODUCEDBY, result);
             } else {
-                L.debug($"unexpectedly missing Food CodexEntry {cookedID}");
+                L.debug($"unexpectedly missing Food CodexEntry {result.cookedID}");
             }
         }
     }
 
-    private static void InsertSectionInto(CodexEntry entry, string where, FoodInfo raw, FoodInfo cooked, float temperature) {
+    private static void InsertSectionInto(CodexEntry entry, string where, CookingResult result) {
         // performance: runs once per food item, at game load, and usually terminates early, so I'm
         // OK with the use of Linq here despite the GC pressure.
         CodexCollapsibleHeader? header = entry.contentContainers
@@ -111,6 +129,14 @@ public static partial class MoreFoodCooksWhenHeated {
             return;
         }
 
-        header.contents.content.Insert(0, new CodexTemperatureCookablePanel(raw, cooked, temperature));
+        header.contents.content.Insert(
+            0,
+            new CodexTemperatureCookablePanel(
+                result.Raw,
+                result.Cooked,
+                result.CookedMassPerRawKG,
+                result.Temperature
+            )
+        );
     }
 }

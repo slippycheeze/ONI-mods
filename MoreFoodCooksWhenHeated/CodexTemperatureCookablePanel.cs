@@ -8,7 +8,7 @@ namespace SlippyCheeze.MoreFoodCooksWhenHeated;
 // based on the Klei CodexTemperatureTransitionPanel, but lightly adapted to support entities for
 // input and output.  uses the same prefab.
 [HarmonyPatch]
-public class CodexTemperatureCookablePanel(FoodInfo raw, FoodInfo cooked, float temperature):
+public class CodexTemperatureCookablePanel(FoodInfo raw, FoodInfo cooked, float outputPercent, float temperature):
     CodexWidget<CodexTemperatureCookablePanel>
 {
     public override void Configure(GameObject content, Transform pane, Styles styles) {
@@ -55,8 +55,8 @@ public class CodexTemperatureCookablePanel(FoodInfo raw, FoodInfo cooked, float 
 
         var materialPrefab = refs.GetReference<RectTransform>("MaterialPrefab").gameObject;
 
-        ConfigureFoodPrefab(materialPrefab, sourceContainer,  raw);
-        ConfigureFoodPrefab(materialPrefab, resultsContainer, cooked);
+        ConfigureFoodPrefab(materialPrefab, sourceContainer,  raw,    1f);
+        ConfigureFoodPrefab(materialPrefab, resultsContainer, cooked, outputPercent);
 
         // last of all, apply the layout, from our base class.
         // 2025-07-15: disabled, since it seems to break header bar layout?
@@ -80,7 +80,7 @@ public class CodexTemperatureCookablePanel(FoodInfo raw, FoodInfo cooked, float 
         );
     }
 
-    private void ConfigureFoodPrefab(GameObject prefab, GameObject container, FoodInfo food) {
+    private void ConfigureFoodPrefab(GameObject prefab, GameObject container, FoodInfo food, float amount) {
         var refs = Util.KInstantiateUI(prefab, container, true).GetComponent<HierarchyReferences>();
 
         Image icon   = refs.GetReference<Image>("Icon");
@@ -88,8 +88,13 @@ public class CodexTemperatureCookablePanel(FoodInfo raw, FoodInfo cooked, float 
         icon.sprite  = sprite.first;
         icon.color   = sprite.second;
 
+        StringBuilder sb = new(50);
+        GameUtil.AppendFormattedCalories(sb, food.CaloriesPerUnit * amount, true);
+        sb.AppendLine();
+        GameUtil.AppendFormattedMass(sb, amount, massFormat: GameUtil.MetricMassFormat.UseThreshold, includeSuffix: true);
+
         var title   = refs.GetReference<LocText>("Title");
-        title.text  = food.ConsumableName;
+        title.text  = sb.ToString();
         title.color = Color.black;
 
         // not honestly sure what I should do about this now.  maybe hide it instead?
