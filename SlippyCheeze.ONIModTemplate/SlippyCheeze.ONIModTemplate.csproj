@@ -4,6 +4,7 @@
     <PackageType>Template</PackageType>
     <PackageVersion>1.0.0</PackageVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
 
     <PackageId>SlippyCheeze.ONIModTemplate</PackageId>
     <RootNamespace>SlippyCheeze.ONIModTemplate</RootNamespace>
@@ -36,7 +37,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Pack="true" Include="SlippyCheeze.ONIModTemplate/**/*" Exclude="SlippyCheeze.ONIModTemplate/**/bin/**;SlippyCheeze.ONIModTemplate/**/obj/**" />
+    <Content Include="SlippyCheeze.ONIModTemplate/**/*"
+             Exclude="SlippyCheeze.ONIModTemplate/**/bin/**;SlippyCheeze.ONIModTemplate/**/obj/**"
+             Pack="true"
+             />
+
+    <None Include="README.md" Pack="true" PackagePath="/" />
 
     <Compile Remove="**/*" />
   </ItemGroup>
