@@ -6,6 +6,7 @@
   <!-- most recent VS2022 update makes this ... less optional.  and it doesn't work with ILRepack. -->
   <PropertyGroup>
     <AccelerateBuildsInVisualStudio>false</AccelerateBuildsInVisualStudio>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <!--Gamedata Folder, adjust to your own ONI installation-->
+    <GameLibsFolder>c:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed</GameLibsFolder>
+    <!--OutputModFolder, adjust it to your own dev folder-->
+    <!--Default for dev folder: -->
+    <ModFolder>$(UserProfile)\Documents\Klei\OxygenNotIncluded\mods\dev</ModFolder>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>SlippyCheeze</Authors>
+    <Copyright>$(AssemblyCopyright)</Copyright>
+    <RepositoryUrl>https://github.com/slippycheeze/ONI-mods</RepositoryUrl>
+  </PropertyGroup>
+</Project>
