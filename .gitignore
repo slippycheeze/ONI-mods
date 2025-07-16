@@ -379,5 +379,5 @@ FodyWeavers.xsd
 
 # Ignore my personal mod files; these are not publicly released for various
 # reasons, though what can be public will be.
-/SlippyCheezePersonal/
+/Personal/
 /Reference/
