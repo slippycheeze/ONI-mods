@@ -9,7 +9,7 @@ public partial class LogicRateLimiterConfig: LogicGateBaseConfig {
     public static readonly (string category, string subcategory, string after) PLAN = (
         Category.Automation,
         SubCategory.logicgates,
-        LogicMemoryConfig.ID
+        LogicGateFilterConfig.ID
     );
 
     public override LogicGateBase.Op GetLogicOp() => LogicGateBase.Op.CustomSingle;
