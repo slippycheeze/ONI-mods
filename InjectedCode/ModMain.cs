@@ -8,6 +8,8 @@ using KMod;
 using PeterHan.PLib.Buildings;
 using PeterHan.PLib.Core;
 
+using SlippyCheeze.SupportCode.LogErrorNotifier;
+
 
 namespace SlippyCheeze;
 [HarmonyPatch]                  // for our ModPatch helper hooks. :)
@@ -27,11 +29,10 @@ public partial class ModMain: UserMod2 {
         PUtil.InitLibrary(false);
         BuildingManager = new();
 
-        // hand-crafted custom indent with alignment.  go me. :)
-        L.log($"{ModName} is now loading (Assembly: {assembly})\n    {ModDescription}");
+        // This implicitly causes the LogErrorNotifier remote components to register with PLib.
+        var RemoteLogVersion = RemoteLogListener.Instance.Version;
+        L.log($"{ModName} is now loading (Assembly: {assembly}, RemoteLog: {RemoteLogVersion})\n    {ModDescription}");
 
-        // Register LogErrorNotifier with PLib before anything calls a serious log method.
-        L.log($"RemoteLogListener.Version {SlippyCheeze.SupportCode.LogErrorNotifier.RemoteLogListener.Instance.Version}");
 
         // `base.OnLoad` calls `harmony.PatchAll(this.assembly)`, triggering all Harmony patch
         // processing.  Thankfully, it has done nothing else close enough to forever that I'm OK
@@ -55,7 +56,6 @@ public partial class ModMain: UserMod2 {
         //
         // If that doesn't happen then we report it in OnAllModsLoaded, since we know it either
         // happened, or will never happen, at that point.
-        L.log($"Applying Harmony Patches from {ModName}");
         TryApplyingAllPatches(harmony);
 
         CallOnModLoadedHooks();
@@ -68,6 +68,13 @@ public partial class ModMain: UserMod2 {
     public override void OnAllModsLoaded(Harmony harmony, IReadOnlyList<Mod> mods) {
         base.OnAllModsLoaded(harmony, mods);
         CallOnAllModsLoadedHooks(mods);
+
+        // Report any ModPatch load failures.
+        if (PendingModPatches.Count > 0) {
+            L.warn($"Never applied {PendingModPatches.Count} ModPatch classes:");
+            foreach (var type in PendingModPatches)
+                L.warn($"For {type}:\n - {String.Join("\n - ", type.ModPatchNotReadyBecause())}");
+        }
     }
 
     private void TryApplyingAllPatches(Harmony harmony) {
@@ -81,7 +88,7 @@ public partial class ModMain: UserMod2 {
         // AccessTools.GetTypesFromAssembly(assembly).Do(type => CreateClassProcessor(type).Patch());
 
         if (HarmonyPatches.Length > 0) {
-            L.log($"Applying {"harmony patch".ToQuantity(HarmonyPatches.Length)} now");
+            L.log($"Applying {HarmonyPatches.Length} HarmonyPatch marked {"class".ToQuantity(HarmonyPatches.Length, ShowQuantityAs.None)}");
             foreach (Type type in HarmonyPatches) {
                 string? comment = type.GetComment();
                 if (!comment.IsNullOrEmpty())
@@ -93,7 +100,7 @@ public partial class ModMain: UserMod2 {
         }
 
         if (ModPatches.Length > 0) {
-            L.log($"Trying to apply {"mod patch".ToQuantity(ModPatches.Length)} now");
+            L.log($"Checking {ModPatches.Length} ModPatch marked {"class".ToQuantity(ModPatches.Length, ShowQuantityAs.None)}");
             // mark all the ModPatch types pending, and...
             PendingModPatches.AddRange(ModPatches);
             // ...invoke the "mod loaded" handler for the first time, to apply any that are ready.
@@ -102,7 +109,7 @@ public partial class ModMain: UserMod2 {
 
         int pending = PendingModPatches.Count;
         int total   = HarmonyPatches.Length + ModPatches.Length;
-        L.log($"Applied {"patch".ToQuantity(total - pending)} and have {pending} pending");
+        L.log($"Applied {"patch".ToQuantity(total - pending)} and have {pending} pending mod loading");
     }
 
 
@@ -122,10 +129,7 @@ public partial class ModMain: UserMod2 {
     [HarmonyPatch(typeof(KMod.DLLLoader), nameof(KMod.DLLLoader.LoadDLLs))]
     [HarmonyPostfix]
     public static void OnModAssemblyLoaded(KMod.Mod ownerMod) {
-        // only count mods which have actually loaded their DLL
-        var mods = Global.Instance.modManager.mods
-            .Where(mod => (mod.loaded_content & KMod.Content.DLL) != 0);
-
+        var mods = ModPatch.AllModsWithLoadedCode;  // minor optimization, but whatevs.
         PendingModPatches.RemoveAll(type => type.ModPatchReady(mods) && ApplyHarmonyPatchesFrom(type));
     }
 }

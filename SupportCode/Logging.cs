@@ -22,6 +22,9 @@ public class L {
     internal static Dictionary<Callsite, string> callerID = [];
 
     // was going to hookName in "boring" method name tracking, but ... prolly there are none.
+    //
+    // 2025-07-16 REVISIT: consider doing something with `ModMain` to make it more distinct per-mod,
+    // since right now there is no way other than finding the "bootstrap" log line to identify it.
     internal static string MakeNiceCallerName(Type type, MethodBase method) {
         string name = method.Name switch {
             ".ctor"   => $"{type.Name}()",         // regular constructor
