@@ -2,7 +2,7 @@
 
 
 [HarmonyPatch]
-public class EntombedCritterMonitor: StateMachineComponent<EntombedCritterMonitor.StatesInstance> {
+public class RescueEntombedCritterMonitor: StateMachineComponent<RescueEntombedCritterMonitor.SMI> {
     // The critter will end up this many cells up.  Inclusive; if the value is 5, and you at Y=10,
     // you might end up anywhere from Y=11 to Y=15 when auto-rescuing.
     public const int MaxCellsToMoveVerticallyIfEntombed = 5;
@@ -12,10 +12,14 @@ public class EntombedCritterMonitor: StateMachineComponent<EntombedCritterMonito
         smi.StartSM();
     }
 
-    public class StatesInstance(EntombedCritterMonitor master):
-        GameStateMachine<States, StatesInstance, EntombedCritterMonitor, object>.GameInstance(master) {
+    public class SMI(RescueEntombedCritterMonitor master):
+        GameStateMachine<States, SMI, RescueEntombedCritterMonitor, object>.GameInstance(master) {
 
         public bool IsEntombed() {
+            // 2025-07-16 REVISIT: I'm not sure if the TagTransition is racing, so adding a check here?
+            if (HasTag(GameTags.Creatures.Bagged))
+                return false;
+            
             int cell = Grid.PosToCell(this);
             if (!Grid.IsSolidCell(cell)) {
                 // L.debug($"{master.Humanize()}: not in a solid cell");
@@ -76,7 +80,7 @@ public class EntombedCritterMonitor: StateMachineComponent<EntombedCritterMonito
         }
     }
 
-    public class States: GameStateMachine<States, StatesInstance, EntombedCritterMonitor> {
+    public class States: GameStateMachine<States, SMI, RescueEntombedCritterMonitor> {
         // not entombed
         public State normal                     = null!;
 
@@ -97,7 +101,7 @@ public class EntombedCritterMonitor: StateMachineComponent<EntombedCritterMonito
                 .TagTransition(GameTags.Creatures.Bagged, this.bagged);
 
             this.bagged
-                .Enter("Bagged", smi => L.debug($"IsBagged: {smi.master.Humanize()}"))
+                // .Enter("Bagged", smi => L.debug($"IsBagged: {smi.master.Humanize()}"))
                 .TagTransition(GameTags.Creatures.Bagged, this.normal, on_remove: true);
 
 
@@ -140,10 +144,10 @@ public class EntombedCritterMonitor: StateMachineComponent<EntombedCritterMonito
         if (AllRobotModels.Contains(species))
             return;
 
-        // L.info($"Adding EntombedCritterMonitor to {prefab.Humanize()}");
+        // L.info($"Adding RescueEntombedCritterMonitor to {prefab.Humanize()}");
 
         // hopefully...
-        prefab.AddOrGet<EntombedCritterMonitor>();
+        prefab.AddOrGet<RescueEntombedCritterMonitor>();
 
         // if (prefab.GetComponent<Capturable>() is null)
         //     L.error($"prefab {prefab.PrefabID()} does not have a Capturable component");
