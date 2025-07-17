@@ -24,4 +24,21 @@ public static partial class CodeExtensions {
 
         return false;
     }
+
+    public static IEnumerable<INamedType> AllTypesIncludingReferencedAssemblies(
+        this IAssembly root,
+        HashSet<IAssembly>? visited = null
+    ) {
+        visited ??= [root];
+        foreach (var type in root.AllTypes)
+            yield return type;
+
+        foreach (var dep in root.ReferencedAssemblies) {
+            if (visited.Add(dep)) {
+                foreach (var type in dep.AllTypesIncludingReferencedAssemblies(visited)) {
+                    yield return type;
+                }
+            }
+        }
+    }
 }

@@ -256,7 +256,7 @@ public static class KleiSimHashesAndTags {
     }
 
     [HarmonyPriority(Priority.Last)]
-    public static void Potsfix() {
+    public static void Postfix() {
         foreach (var element in ElementLoader.elements)
             KleiSimHashesAndTags.Add(element);
     }
@@ -282,6 +282,8 @@ public static class KleiSimHashesAndTags {
         KleiSimHashesAndTags.Add(element);
         return element.tag;
     }
+
+    public static Tag ToTag(this PrimaryElement element) => element.ElementID.ToTag();
 }
 
 

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
@@ -55,8 +56,8 @@ public class ModMainAspect: IAspect<INamedType> {
                 m.Accessibility         = Accessibility.Public;
                 m.Writeability          = Writeability.ConstructorOnly;
                 m.InitializerExpression = ToArrayOfTypes(
-                    builder.Target.DeclaringAssembly.AllTypes
-                    .Where(static type => type.Enhancements().HasAspect<ONITranslationExtensions>())
+                    builder.Target.DeclaringAssembly.AllTypesIncludingReferencedAssemblies()
+                    .Where(static type => type.Name == "MODSTRINGS")
                     .SelectMany(static type => type.Types)
                     .Where(static type => type.TypeKind == TypeKind.Class && Regex.IsMatch(type.Name, @"^[A-Z]+$"))
                 );
@@ -72,7 +73,7 @@ public class ModMainAspect: IAspect<INamedType> {
 
             // I already know ModMain is a HarmonyPatch, and that I want to apply it first, so may
             // as well sort that here. :)
-            var patches = builder.Target.DeclaringAssembly.AllTypes
+            var patches = builder.Target.DeclaringAssembly.AllTypesIncludingReferencedAssemblies()
                 .Where(type => type != ModMain && type.Attributes.OfAttributeType(HarmonyPatch).Any())
                 .Prepend(ModMain);
 
@@ -108,7 +109,7 @@ public class ModMainAspect: IAspect<INamedType> {
             .WithTypeArguments(TypeFactory.GetType("KMod.Mod"));
         var UserMod2 = TypeFactory.GetType("KMod.UserMod2");
 
-        var allMethods = builder.Target.DeclaringAssembly.AllTypes
+        var allMethods = builder.Target.DeclaringAssembly.AllTypesIncludingReferencedAssemblies()
             // specifically exclude methods on a subclass of UserMod2, which is to say, exclude the
             // methods on the class that Klei treat as the entry point to the mod, and nothing else.
             .Where(type => !type.IsSubclassOf(UserMod2))
