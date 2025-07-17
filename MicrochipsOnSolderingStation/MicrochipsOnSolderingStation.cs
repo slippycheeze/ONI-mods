@@ -43,7 +43,7 @@ public static class MicrochipsOnSolderingStation {
             // PowerControlStation:             Acoustics
             // AdvancedCraftingTable:           AdvancedResearch
             // ComplexFabricatorRecipeControl:  ParallelAutomation
-            requiredTech = "ParallelAutomation",
+            requiredTech = ResearchID.Computers.ParallelAutomation,
             sortOrder = 100,   // might as well be probably definitely last on the list...
         };
     }

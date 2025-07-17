@@ -7,8 +7,8 @@ public partial class LogicRateLimiterConfig: LogicGateBaseConfig {
     public const string ID   = nameof(LogicRateLimiter);
     public const string TECH = ResearchID.Computers.AdvancedAutomation;
     public static readonly (string category, string subcategory, string after) PLAN = (
-        Category.Automation,
-        SubCategory.logicgates,
+        KleiPlan.Automation.ID,
+        KleiPlan.Automation.logicgates,
         LogicGateFilterConfig.ID
     );
 
