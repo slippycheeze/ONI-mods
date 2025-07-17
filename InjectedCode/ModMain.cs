@@ -31,7 +31,7 @@ public partial class ModMain: UserMod2 {
 
         // This implicitly causes the LogErrorNotifier remote components to register with PLib.
         var RemoteLogVersion = RemoteLogListener.Instance.Version;
-        L.log($"{ModName} is now loading (Assembly: {assembly}, RemoteLog: {RemoteLogVersion})\n    {ModDescription}");
+        L.log($"{ModName} is now loading (Assembly: {assembly.GetName().Name}, RemoteLog: {RemoteLogVersion})\n    {ModDescription}");
 
 
         // `base.OnLoad` calls `harmony.PatchAll(this.assembly)`, triggering all Harmony patch
