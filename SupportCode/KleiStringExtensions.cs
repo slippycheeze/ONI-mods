@@ -6,6 +6,9 @@ public static partial class KleiStringExtensions {
     public static string AsLink(this string name, string target = "")
         => FormatAsLink(name, String.IsNullOrEmpty(target) ? name.ToUpperInvariant() : target);
 
+    public static string AsTemperature(this float value) => GameUtil.GetFormattedTemperature(value);
+
+
     public static string AsKeyWord(this string text) => FormatAsKeyWord(text);
 
     public static string AsPositiveModifier(this string text) => FormatAsPositiveModifier(text);
