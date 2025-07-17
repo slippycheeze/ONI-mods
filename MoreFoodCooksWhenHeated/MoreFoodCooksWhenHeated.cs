@@ -9,7 +9,24 @@ public static partial class MoreFoodCooksWhenHeated {
     public const float CookingTemperature = Constants.CELSIUS2KELVIN + 71;
 
     public record struct CookingResult(string stationID, string rawID, string cookedID, float Temperature = CookingTemperature) {
-        public bool Exists => Raw is not null && Cooked is not null && Recipe is not null;
+        public bool Exists {
+            get {
+                if (Raw is null) {
+                    L.warn($"{rawID} did not have a FoodInfo");
+                    return false;
+                }
+                if (Cooked is null) {
+                    L.warn($"{cookedID} did not have a FoodInfo");
+                    return false;
+                }
+                if (Recipe is null) {
+                    L.warn($"{rawID} to {cookedID} recipe '{RecipeID}' not found");
+                    return false;
+                }
+
+                return true;
+            }
+        }
 
         public FoodInfo Raw    => EdiblesManager.GetFoodInfo(rawID);
         public FoodInfo Cooked => EdiblesManager.GetFoodInfo(cookedID);
@@ -75,7 +92,7 @@ public static partial class MoreFoodCooksWhenHeated {
         .Where(item => item.Exists);
 
 
-    [HarmonyPatch(typeof(EntityConfigManager), nameof(EntityConfigManager.LoadGeneratedEntities))]
+    [HarmonyPatch(typeof(Assets), nameof(Assets.CreatePrefabs))]
     [HarmonyPostfix]
     public static void AddTemperatureCookableToEntities() {
         foreach (var result in CookingResults) {
@@ -93,6 +110,8 @@ public static partial class MoreFoodCooksWhenHeated {
             cookable.cookTemperature      = result.Temperature;
             cookable.cookedID             = result.cookedID;
             cookable.cookedMassMultiplier = result.CookedMassPerRawKG;
+
+            L.debug($"{result.rawID} cooks to {result.cookedID} at 1:{result.CookedMassPerRawKG}");
         }
     }
 
