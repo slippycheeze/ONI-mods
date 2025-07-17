@@ -54,8 +54,4 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LamaDebug|AnyCPU'">
     <WarningsNotAsErrors>Nullable;CS8509;LAMA0066;CS0162</WarningsNotAsErrors>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="PLib" Version="*" />
-  </ItemGroup>
 </Project>

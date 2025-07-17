@@ -144,6 +144,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+
+    <PackageReference Include="PLib" Version="*" />
   </ItemGroup>
 
 
@@ -172,6 +174,8 @@
     <Using Include="HarmonyLib" />
 
     <Using Include="UnityEngine" />
+
+    <Using Include="PeterHan.PLib.Buildings" />
 
     <PackageReference Include="Humanizer.Core" Version="*" />
     <Using Include="Humanizer" />
