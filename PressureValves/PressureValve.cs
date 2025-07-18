@@ -115,26 +115,26 @@ public abstract partial class PressureValve: KMonoBehaviour, IBridgedNetworkItem
         var packet = FlowManager.GetContents(inputCell);
         if (packet.mass > 0) {
             massToConsume = Mathf.Min(packet.mass, FlowManager.MaxMass);
-            L.debug($"have input packet, will consume Min(packet.mass={packet.mass}, FlowManager.MaxMass={FlowManager.MaxMass}) = {massToConsume}");
+            // L.debug($"have input packet, will consume Min(packet.mass={packet.mass}, FlowManager.MaxMass={FlowManager.MaxMass}) = {massToConsume}");
 
             if (storage.FindPrimaryElement(packet.element) is PrimaryElement stored) {
                 float storedMass = storage.GetMassAvailable(stored.ElementID);
                 massToConsume = Mathf.Min(massToConsume, FlowManager.MaxMass - storedMass);
-                L.debug($"Storing {storedMass} of {packet.element}, massToConsume={massToConsume}");
+                // L.debug($"Storing {storedMass} of {packet.element}, massToConsume={massToConsume}");
             }
 
             // if we don't have enough storage space to fill the current packet with the content of
             // the input conduit, try and emit something to free up some space, even
             // a partial packet.
             if (storage.RemainingCapacity() < massToConsume) {
-                L.debug($"Trying to emit packet because storage.RemainingCapacity() is less than massToConsume");
+                // L.debug($"Trying to emit packet because storage.RemainingCapacity() is less than massToConsume");
                 massEmitted += TryAndOutputPacket(emitPartialPackets: true);
             }
 
             // and now, consume enough that we don't over-fill storage.  hopefully the full content
             // of the input, but you never know. :)
             massToConsume = Mathf.Min(massToConsume, storage.RemainingCapacity());
-            L.debug($"finaly massToConsume={massToConsume}");
+            // L.debug($"finaly massToConsume={massToConsume}");
             if (massToConsume > 0) {
                 storage.AddElement(
                     element:        packet.element,
@@ -156,7 +156,7 @@ public abstract partial class PressureValve: KMonoBehaviour, IBridgedNetworkItem
     }
 
     private float TryAndOutputPacket(bool emitPartialPackets) {
-        L.debug($"emitPartialPackets={emitPartialPackets}");
+        // L.debug($"emitPartialPackets={emitPartialPackets}");
 
         // figure out what we can output.  starting with: can we merge something into the
         // output conduit?
@@ -187,7 +187,7 @@ public abstract partial class PressureValve: KMonoBehaviour, IBridgedNetworkItem
             return 0;
         }
         if (!emitPartialPackets && canEmit < wantToEmit) {
-            L.debug($"not emitting: !emitPartialPackets={!emitPartialPackets} and canEmit({canEmit}) < wantToEmit({wantToEmit})");
+            // L.debug($"not emitting: !emitPartialPackets={!emitPartialPackets} and canEmit({canEmit}) < wantToEmit({wantToEmit})");
             return 0;
         }
 
@@ -223,7 +223,7 @@ public abstract partial class PressureValve: KMonoBehaviour, IBridgedNetworkItem
             );
         }
 
-        L.debug(didEmit);
+        // L.debug(didEmit);
         return didEmit;
     }
 
