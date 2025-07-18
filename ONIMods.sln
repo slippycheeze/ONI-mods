@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlippyCheezePersonal", "Per
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PressureValves", "PressureValves\PressureValves.csproj", "{7BD152FC-3E14-4F08-9BB1-C145D6D10190}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartResourceDiscovery", "SmartResourceDiscovery\SmartResourceDiscovery.csproj", "{11EE5F9E-7EE6-49D4-B73B-38BA220919D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,6 +100,10 @@ Global
 		{7BD152FC-3E14-4F08-9BB1-C145D6D10190}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BD152FC-3E14-4F08-9BB1-C145D6D10190}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BD152FC-3E14-4F08-9BB1-C145D6D10190}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11EE5F9E-7EE6-49D4-B73B-38BA220919D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11EE5F9E-7EE6-49D4-B73B-38BA220919D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11EE5F9E-7EE6-49D4-B73B-38BA220919D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11EE5F9E-7EE6-49D4-B73B-38BA220919D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
