@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartResourceDiscovery", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweaksAndFixes", "TweaksAndFixes\TweaksAndFixes.csproj", "{30D3883D-8522-42C6-8070-65C060393D24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicResourceSensor", "LogicResourceSensor\LogicResourceSensor.csproj", "{9062EAB3-F021-42E1-AB8E-61643E0671BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{30D3883D-8522-42C6-8070-65C060393D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30D3883D-8522-42C6-8070-65C060393D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30D3883D-8522-42C6-8070-65C060393D24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9062EAB3-F021-42E1-AB8E-61643E0671BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9062EAB3-F021-42E1-AB8E-61643E0671BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9062EAB3-F021-42E1-AB8E-61643E0671BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9062EAB3-F021-42E1-AB8E-61643E0671BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
