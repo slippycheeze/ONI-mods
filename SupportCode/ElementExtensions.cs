@@ -1,6 +1,6 @@
 ﻿namespace SlippyCheeze.SupportCode;
 
-public static class ElementTags {
+public static class Tags {
     public static readonly Tag Aerogel                = (Tag) "Aerogel";
     public static readonly Tag Algae                  = (Tag) "Algae";
     public static readonly Tag Aluminum               = (Tag) "Aluminum";

@@ -49,24 +49,24 @@ public static class SmartResourceDiscovery {
         // DiscoveredResources.Instance.Discover(HatchConfig.ID, GameTags.BagableCreature);
 
         // Discover plain and polluted water, which do show up everywhere.
-        DiscoveredResources.Instance.Discover(ElementTags.Water, GameTags.Liquid);
-        DiscoveredResources.Instance.Discover(ElementTags.DirtyWater, GameTags.Liquid);
+        DiscoveredResources.Instance.Discover(Tags.Water, GameTags.Liquid);
+        DiscoveredResources.Instance.Discover(Tags.DirtyWater, GameTags.Liquid);
 
         // Discover sandstone, which always happens ... at least on the clusters I played on so far.
-        DiscoveredResources.Instance.Discover(ElementTags.SandStone, GameTags.BuildableRaw);
-        DiscoveredResources.Instance.Discover(ElementTags.IgneousRock, GameTags.BuildableRaw);
-        DiscoveredResources.Instance.Discover(ElementTags.Cuprite, GameTags.Metal);  // copper ore
-        DiscoveredResources.Instance.Discover(ElementTags.Dirt, GameTags.Farmable);
+        DiscoveredResources.Instance.Discover(Tags.SandStone, GameTags.BuildableRaw);
+        DiscoveredResources.Instance.Discover(Tags.IgneousRock, GameTags.BuildableRaw);
+        DiscoveredResources.Instance.Discover(Tags.Cuprite, GameTags.Metal);  // copper ore
+        DiscoveredResources.Instance.Discover(Tags.Dirt, GameTags.Farmable);
 
         // The nasty things I want to schedule putting away *before* they first drop.
-        DiscoveredResources.Instance.Discover(ElementTags.SlimeMold, GameTags.Organics);  // Slime
-        DiscoveredResources.Instance.Discover(ElementTags.ToxicSand, GameTags.Organics);  // Polluted Dirt
-        DiscoveredResources.Instance.Discover(ElementTags.ToxicMud, GameTags.Organics);   // Polluted Mud
+        DiscoveredResources.Instance.Discover(Tags.SlimeMold, GameTags.Organics);  // Slime
+        DiscoveredResources.Instance.Discover(Tags.ToxicSand, GameTags.Organics);  // Polluted Dirt
+        DiscoveredResources.Instance.Discover(Tags.ToxicMud, GameTags.Organics);   // Polluted Mud
         // vaguely weird thing that food turns into before turning into Pollutied Dirt (*ahem*, toxic sand)
         DiscoveredResources.Instance.Discover(RotPileConfig.ID, GameTags.Organics);
 
-        DiscoveredResources.Instance.Discover(ElementTags.BleachStone, GameTags.Sublimating);
-        DiscoveredResources.Instance.Discover(ElementTags.OxyRock, GameTags.Sublimating);  // Oxylite
+        DiscoveredResources.Instance.Discover(Tags.BleachStone, GameTags.Sublimating);
+        DiscoveredResources.Instance.Discover(Tags.OxyRock, GameTags.Sublimating);  // Oxylite
 
         // If the story trait was unlocked, then this mod enabled, I still want to unlock the
         // Somnium Sythasizer related items, so... check the lock on start. :)
