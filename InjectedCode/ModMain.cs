@@ -13,19 +13,25 @@ using SlippyCheeze.SupportCode.LogErrorNotifier;
 
 namespace SlippyCheeze;
 [HarmonyPatch]                  // for our ModPatch helper hooks. :)
-public partial class ModMain: UserMod2 {
+public partial class ModMain: UserMod2, SupportCode.IModMain {
     // globally available values, at least as soon as we can possibly supply them.
     public static ModMain Instance = null!;
+    IModMain IModMain.Instance => Instance;
+
     public static Harmony Harmony  = null!;
+    Harmony IModMain.Harmony => Harmony;
 
     // instance values.  not so much available everywhere, but close enough.
     public PBuildingManager BuildingManager = null!;
+    PBuildingManager IModMain.BuildingManager => BuildingManager;
+
     public static void Register(PBuilding building) => ModMain.Instance.BuildingManager.Register(building);
 
     public override void OnLoad(Harmony harmony) {
         Instance = this;    // as early as possible, yo.
         Harmony = harmony;
 
+        SupportCode.SupportCode.Initialize(this);
         PUtil.InitLibrary(false);
         BuildingManager = new();
 
