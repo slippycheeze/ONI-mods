@@ -76,7 +76,12 @@ public abstract partial class PressureValve: KMonoBehaviour, IBridgedNetworkItem
     }
 
     private static readonly EventSystem.IntraObjectHandler<PressureValve> OnFunctionalChangedDelegate
-        = new((component, data) => component.OnFunctionalChanged((bool)data));
+        = new((component, data) => {
+              if (data is Boxed<bool> box)
+                  component.OnFunctionalChanged(box.value);
+              else
+                  L.error($"OnFunctionalChangedDelegate: data is {data.GetType()} '{data}'");
+        });
 
     private void OnFunctionalChanged(bool functional) {
         // if we are non-functional, we are definitely non-active.  on the other hand, if we are
