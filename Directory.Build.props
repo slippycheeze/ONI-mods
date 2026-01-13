@@ -177,7 +177,7 @@
 
     <Using Include="PeterHan.PLib.Buildings" />
 
-    <PackageReference Include="Humanizer.Core" Version="*" />
+    <PackageReference Include="Humanizer.Core" Version="2.*" />
     <Using Include="Humanizer" />
   </ItemGroup>
   

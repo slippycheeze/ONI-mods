@@ -32,13 +32,18 @@
       <InputAssemblies
 	  Include="$(TargetDir)/*.dll"
 	  Exclude="$(TargetPath); **/0Harmony.dll; **_public.dll ;**Newtonsoft.Json;**/System.*; **/Microsoft.*" />
+      <SystemExtras Include="**/System.Memory.dll;
+                             **/System.Buffers.dll;
+                             **/System.ComponentModel.DataAnnotations.dll;
+                             **/System.Numerics.Vectors.dll"
+                    />
       <MetalamaExtras Include="**/System.Collections.Immutable.dll; **/Microsoft.Bcl.Hashcode.dll" />
     </ItemGroup>
 
     <ILRepack
 	TargetPlatformVersion="v4"
 	TargetKind="SameAsPrimaryAssembly"
-	InputAssemblies="@(InputAssemblies); @(MetalamaExtras)"
+	InputAssemblies="@(InputAssemblies); @(SystemExtras); @(MetalamaExtras)"
 	Wildcards="true"
 	LibraryPath="$(GameLibsFolder); $(TargetDir)"
 	Parallel="true"
