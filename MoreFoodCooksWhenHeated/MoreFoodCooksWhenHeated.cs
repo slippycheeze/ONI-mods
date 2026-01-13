@@ -85,9 +85,9 @@ public static partial class MoreFoodCooksWhenHeated {
             // somehow, because that makes sense to me, so...
 
             // Tough Meat -> Tender Brisket
-            new(SmokerConfig.ID,            DinosaurMeatConfig.ID,          SmokedDinosaurMeatConfig.ID),
+            // new(SmokerConfig.ID,            DinosaurMeatConfig.ID,          SmokedDinosaurMeatConfig.ID),
             // Vegie Poppers, from Sweatcorn, which hasn't an Electric Grill recipe.
-            new(SmokerConfig.ID,            GardenFoodPlantFoodConfig.ID,   SmokedVegetablesConfig.ID),
+            // new(SmokerConfig.ID,            GardenFoodPlantFoodConfig.ID,   SmokedVegetablesConfig.ID),
         ])
         .Where(item => item.Exists);
 
