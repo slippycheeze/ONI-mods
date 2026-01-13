@@ -29,7 +29,7 @@ internal static class FixSlicksterDrowningBug {
         CavityInfo cavity = Game.Instance.roomProber.GetCavityForCell(cell);
         if (cavity == null)
             return false;
-        if (cavity.numCells > 64)  // 8×8 chamber
+        if (cavity.NumCells > 64)  // 8×8 chamber
             return false;
         for (int x = cavity.minX; x <= cavity.maxX; ++x)
             for (int y = cavity.minY; y <= cavity.maxY; ++y) {

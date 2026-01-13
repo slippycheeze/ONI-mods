@@ -879,10 +879,10 @@ public partial class LogicResourceSensor: Switch, ISaveLoadable, ISim200ms, IThr
         set {
             if (value != null) {
                 // if the room isn't valid, don't allow it to be assigned.
-                if (value.cavity.numCells > MaxRoomSize) {
+                if (value.cavity.NumCells > MaxRoomSize) {
                     if (haveComplainedAboutBadRoom != value) {
                         haveComplainedAboutBadRoom = value;
-                        L.warn($"currentRoom is invalid: numCells {value.cavity.numCells} > {MaxRoomSize} MaxRoomSize, ignoring");
+                        L.warn($"currentRoom is invalid: numCells {value.cavity.NumCells} > {MaxRoomSize} MaxRoomSize, ignoring");
                     }
                     value = null;
                 }
