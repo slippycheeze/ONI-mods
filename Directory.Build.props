@@ -192,7 +192,7 @@
     <Using Include="SlippyCheeze.MetaProgramming" />
 
     <!-- expose some MSBuild project attributes to the Metalama Compiler -->
-    <CompilerVisibleProperty Include="IsMod;IsPacked;ModName;ModDescription;MinimumSupportedBuild;APIVersion" />
+    <CompilerVisibleProperty Include="AssemblyName;IsMod;IsPacked;ModName;ModDescription;MinimumSupportedBuild;APIVersion" />
 
     <!-- all mods get SupportCode merged in, too, but it compile but the once. -->
     <ProjectReference Include="$(MSBuildThisFileDirectory)\SupportCode\SupportCode.csproj" />

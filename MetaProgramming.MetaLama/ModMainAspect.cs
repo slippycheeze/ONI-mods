@@ -27,7 +27,7 @@ public class ModMainAspect: IAspect<INamedType> {
 
         // Inject metadata about the mod into the target class.  also available:
         // "IsMod", "IsPacked", "MinimumSupportedBuild", "APIVersion"
-        string[] ModInfo = ["ModName", "ModDescription"];
+        string[] ModInfo = ["AssemblyName", "ModName", "ModDescription"];
         foreach (string name in ModInfo) {
             if (!builder.Project.TryGetProperty(name, out var value)) {
                 builder.Diagnostics.Report(CompileError.MSBuildPropertyMissing.WithArguments(name));
@@ -45,6 +45,7 @@ public class ModMainAspect: IAspect<INamedType> {
             );
         }
 
+
         // Find all the MODSTRINGS types in the project, and pop them into a nice array for the
         // runtime code to use when the mod is loaded.
         builder.IntroduceField(
@@ -56,7 +57,8 @@ public class ModMainAspect: IAspect<INamedType> {
                 m.Accessibility         = Accessibility.Public;
                 m.Writeability          = Writeability.ConstructorOnly;
                 m.InitializerExpression = ToArrayOfTypes(
-                    builder.Target.DeclaringAssembly.AllTypesIncludingReferencedAssemblies()
+                    builder.Target.DeclaringAssembly.AllTypes //IncludingReferencedAssemblies()
+                    .Where(static type => type is INamespaceOrNamedType)
                     .Where(static type => type.Name == "MODSTRINGS")
                     .SelectMany(static type => type.Types)
                     .Where(static type => type.TypeKind == TypeKind.Class && Regex.IsMatch(type.Name, @"^[A-Z]+$"))
@@ -73,7 +75,7 @@ public class ModMainAspect: IAspect<INamedType> {
 
             // I already know ModMain is a HarmonyPatch, and that I want to apply it first, so may
             // as well sort that here. :)
-            var patches = builder.Target.DeclaringAssembly.AllTypesIncludingReferencedAssemblies()
+            var patches = builder.Target.DeclaringAssembly.AllTypes //IncludingReferencedAssemblies()
                 .Where(type => type != ModMain && type.Attributes.OfAttributeType(HarmonyPatch).Any())
                 .Prepend(ModMain);
 
@@ -109,7 +111,7 @@ public class ModMainAspect: IAspect<INamedType> {
             .WithTypeArguments(TypeFactory.GetType("KMod.Mod"));
         var UserMod2 = TypeFactory.GetType("KMod.UserMod2");
 
-        var allMethods = builder.Target.DeclaringAssembly.AllTypesIncludingReferencedAssemblies()
+        var allMethods = builder.Target.DeclaringAssembly.AllTypes //IncludingReferencedAssemblies()
             // specifically exclude methods on a subclass of UserMod2, which is to say, exclude the
             // methods on the class that Klei treat as the entry point to the mod, and nothing else.
             .Where(type => !type.IsSubclassOf(UserMod2))

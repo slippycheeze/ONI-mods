@@ -29,14 +29,19 @@ public static partial class CodeExtensions {
         this IAssembly root,
         HashSet<IAssembly>? visited = null
     ) {
-        visited ??= [root];
-        foreach (var type in root.AllTypes)
-            yield return type;
+        if (root is not null) {
+            visited ??= [root];
+            foreach (var type in root.AllTypes)
+                yield return type;
 
-        foreach (var dep in root.ReferencedAssemblies) {
-            if (visited.Add(dep)) {
-                foreach (var type in dep.AllTypesIncludingReferencedAssemblies(visited)) {
-                    yield return type;
+            foreach (var dep in root.ReferencedAssemblies) {
+                if (dep is null)
+                    continue;
+
+                if (visited.Add(dep)) {
+                    foreach (var type in dep.AllTypesIncludingReferencedAssemblies(visited)) {
+                        yield return type;
+                    }
                 }
             }
         }

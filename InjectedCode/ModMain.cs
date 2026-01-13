@@ -46,6 +46,19 @@ public partial class ModMain: UserMod2, SupportCode.IModMain {
         // stuff around timing it, and around patching other mods.
         var stopwatch = Stopwatch.StartNew();
 
+
+        // Add previously loaded mods to our "DLL loaded" list
+        foreach (var mod in Global.Instance.modManager.mods) {
+            // if (mod.staticID == AssemblyName) {
+            //     L.debug($"Found myself in the mod list, stopping iteration");
+            //     break;
+            // }
+
+            // L.debug($"Adding mod.staticID='{mod.staticID}' to my DLL-is-loaded list");
+            ModPatch.AllModsWithLoadedCode.Add(mod);
+        }
+
+
         // Register STRINGS translation keys; ONI handles everything once we hand it the top level
         // category Type object, which we collected at compile-time.
         foreach (Type root in AllModStringsRoots) {
@@ -80,6 +93,11 @@ public partial class ModMain: UserMod2, SupportCode.IModMain {
             L.warn($"Never applied {PendingModPatches.Count} ModPatch classes:");
             foreach (var type in PendingModPatches)
                 L.warn($"For {type}:\n - {String.Join("\n - ", type.ModPatchNotReadyBecause())}");
+
+            // L.warn($"Dumping LoadedModData for comparison");
+            // foreach (var (dll, mod) in LoadedModDataGlobal.Instance.modManager.mods) {
+            //     L.warn($" - {mod.staticID} | loaded_content={mod.loaded_content} dll={mod.loaded_content & KMod.Content.DLL} | label ={mod.label}");
+            // }
         }
     }
 
@@ -136,6 +154,8 @@ public partial class ModMain: UserMod2, SupportCode.IModMain {
     [HarmonyPostfix]
     public static void OnModAssemblyLoaded(KMod.Mod ownerMod) {
         var mods = ModPatch.AllModsWithLoadedCode;  // minor optimization, but whatevs.
+        mods.Add(ownerMod);
+        // L.debug($"Adding mod.staticID='{ownerMod.staticID}' to my DLL-is-loaded list");
         PendingModPatches.RemoveAll(type => type.ModPatchReady(mods) && ApplyHarmonyPatchesFrom(type));
     }
 }
