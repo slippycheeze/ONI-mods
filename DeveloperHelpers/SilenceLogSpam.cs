@@ -35,30 +35,6 @@ namespace SlippyCheeze.DeveloperHelpers;
 // }
 
 
-[HarmonyPatch(typeof(TargetScreen), nameof(TargetScreen.SetTarget))]
-internal static class SilenceTargetScreenLogSpam {
-    internal static IEnumerable<CodeInstruction> Transpiler(
-        IEnumerable<CodeInstruction> code,
-        ILGenerator generator,
-        MethodBase target
-    ) => Transpile(
-        "remove log-spamming with 'False'",
-        code, generator, target,
-        (matcher) => matcher
-        .ThrowIfNotMatch(
-            "The 'False' log-spam code has changed?",
-            // IL_0000: ldarg.1      // target
-            new(OpCodes.Ldarg_1),
-            // IL_0001: call         bool UnityEngine.Object::op_Implicit(class Object)
-            new(i => i.ToString().Contains(@"call static System.Boolean UnityEngine.Object::op_Implicit")),
-            // IL_0006: call         void [mscorlib]System.Console::WriteLine(bool)
-            new(i => i.Calls(typeof(Console).DeclaredMethod(nameof(Console.WriteLine), [typeof(bool)])))
-        )
-        .RemoveInstructions(3)
-    );
-}
-
-
 [ModPatch("asquared31415.TrafficVisualizer", steamID: 2208398090)]
 internal static partial class SilenceTrafficVisualizerLogSpam {
     [Memoize]
