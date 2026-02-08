@@ -34,8 +34,7 @@ public class MemoizeAspect: IAspect<IMethod>, IAspect<IProperty> {
 
     public void BuildAspect(IAspectBuilder<IProperty> builder) {
         IField field = IntroduceBackingField(builder, builder.Target.Type, out bool isBoxed);
-        builder.Advice.OverrideAccessors(
-            targetFieldOrProperty: builder.Target,
+        builder.OverrideAccessors(
             getTemplate: isBoxed ? nameof(BoxingTemplate) : nameof(NonNullableReferenceTypeTemplate),
             args: new { field, T = builder.Target.Type }
         );
@@ -52,17 +51,17 @@ public class MemoizeAspect: IAspect<IMethod>, IAspect<IProperty> {
             isBoxed = true;
         }
 
-        return builder.Advice.IntroduceField(
-            targetType: builder.Target.DeclaringType,
-            fieldName:  $"_{builder.Target.Name}",
-            fieldType:  type,
-            scope:      IntroductionScope.Target,
-            whenExists: OverrideStrategy.Fail,
-            buildField: m => {
-                m.Accessibility = Accessibility.Private;
-                m.Writeability  = Writeability.All;
-            }
-        )
+        return builder.With(builder.Target.DeclaringType)
+            .IntroduceField(
+                fieldName:  $"_{builder.Target.Name}",
+                fieldType:  type,
+                scope:      IntroductionScope.Target,
+                whenExists: OverrideStrategy.Fail,
+                buildField: m => {
+                    m.Accessibility = Accessibility.Private;
+                    m.Writeability  = Writeability.All;
+                }
+            )
             .Declaration;
     }
 
