@@ -49,10 +49,10 @@ public partial class ModMain: UserMod2, SupportCode.IModMain {
 
         // Add previously loaded mods to our "DLL loaded" list
         foreach (var mod in Global.Instance.modManager.mods) {
-            // if (mod.staticID == AssemblyName) {
-            //     L.debug($"Found myself in the mod list, stopping iteration");
-            //     break;
-            // }
+            if (mod.staticID == AssemblyName) {
+                // L.debug($"Found myself in the mod list, stopping iteration");
+                break;
+            }
 
             // L.debug($"Adding mod.staticID='{mod.staticID}' to my DLL-is-loaded list");
             ModPatch.AllModsWithLoadedCode.Add(mod);
