@@ -1,24 +1,22 @@
 ﻿// This provides the baseline ModMain that *all* my mods use.  Individual mods shouldn't be
 // customizing anything here, they should be implementing one of the hooks this works with to do
 // their things.
-using System.Diagnostics;
-
 using KMod;
-
 using PeterHan.PLib.Buildings;
 using PeterHan.PLib.Core;
-
 using SlippyCheeze.SupportCode.LogErrorNotifier;
+using System.Diagnostics;
 
 
 namespace SlippyCheeze;
+
 [HarmonyPatch]                  // for our ModPatch helper hooks. :)
 public partial class ModMain: UserMod2, SupportCode.IModMain {
     // globally available values, at least as soon as we can possibly supply them.
     public static ModMain Instance = null!;
     IModMain IModMain.Instance => Instance;
 
-    public static Harmony Harmony  = null!;
+    public static Harmony Harmony = null!;
     Harmony IModMain.Harmony => Harmony;
 
     // instance values.  not so much available everywhere, but close enough.
@@ -132,7 +130,7 @@ public partial class ModMain: UserMod2, SupportCode.IModMain {
         }
 
         int pending = PendingModPatches.Count;
-        int total   = HarmonyPatches.Length + ModPatches.Length;
+        int total = HarmonyPatches.Length + ModPatches.Length;
         L.log($"Applied {"patch".ToQuantity(total - pending)} and have {pending} pending mod loading");
     }
 

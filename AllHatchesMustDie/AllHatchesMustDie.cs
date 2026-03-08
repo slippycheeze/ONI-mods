@@ -2,7 +2,7 @@
 
 
 [HarmonyPatch(typeof(Db), nameof(Db.PostProcess))]
-internal static class AllHatchesMustDie {
+internal static partial class AllHatchesMustDie {
     internal static void Postfix() {
         string[] hatches = ["Hatch", "HatchBaby", "Glom"];
 
