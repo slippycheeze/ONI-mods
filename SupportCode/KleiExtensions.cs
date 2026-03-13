@@ -26,6 +26,10 @@ public static class KleiExtensions {
     public static bool HasComponent<T>(this Component cmp) where T: Component
         => cmp.gameObject.HasComponent<T>();
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T AddOrGet<T>(this Component cmp) where T: Component
+        => cmp.gameObject.AddOrGet<T>();
+
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Deconstruct(this Vector2I vec, out int x, out int y) {

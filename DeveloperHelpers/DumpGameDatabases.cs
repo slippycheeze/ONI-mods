@@ -127,6 +127,7 @@ internal static partial class DumpGameDatabases {
                 static s => new { Name = s.name, Texture2D = s.texture?.name }
             )
         );
+        // DiscoveredResources changes as we play a live game, sadly.
         DumpThreadSafeDatabase("DiscoveredResources", DiscoveredResources.Instance.DiscoveredCategories);
     }
 
@@ -144,6 +145,7 @@ internal static partial class DumpGameDatabases {
         if (__instance.IsDiscovered(tag))
             return;             // we do get called even when already discovered, so ignore those.
 
-        DumpThreadSafeDatabase("DiscoveredResources", DiscoveredResources.Instance.DiscoveredCategories);
+        // During actual play DiscoveredResources is not thread safe.
+        DumpDatabase("DiscoveredResources", DiscoveredResources.Instance.DiscoveredCategories);
     }
 }

@@ -2,6 +2,8 @@
 
 
 public static class HumanizerExtensions {
+    public static string OrNull(this string str) => str == null ? "<null>" : str;
+
     public static string IsOrIsNot(this string term, bool value) => value switch {
         true  => $"is {term}",
         false => $"is not {term}"

@@ -42,7 +42,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweaksAndFixes", "TweaksAnd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicResourceSensor", "LogicResourceSensor\LogicResourceSensor.csproj", "{9062EAB3-F021-42E1-AB8E-61643E0671BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModeratelyImprovedBlueprintSelection", "ModeratelyImprovedBlueprintSelection\ModeratelyImprovedBlueprintSelection.csproj", "{78F1AB5D-A873-43A6-A18C-45C6EA9604E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImprovedFacadeSelection", "ImprovedFacadeSelection\ImprovedFacadeSelection.csproj", "{BCD44B49-88B7-4B1C-B8AA-435EBD08C6E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -118,10 +118,10 @@ Global
 		{9062EAB3-F021-42E1-AB8E-61643E0671BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9062EAB3-F021-42E1-AB8E-61643E0671BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9062EAB3-F021-42E1-AB8E-61643E0671BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{78F1AB5D-A873-43A6-A18C-45C6EA9604E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78F1AB5D-A873-43A6-A18C-45C6EA9604E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78F1AB5D-A873-43A6-A18C-45C6EA9604E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78F1AB5D-A873-43A6-A18C-45C6EA9604E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD44B49-88B7-4B1C-B8AA-435EBD08C6E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD44B49-88B7-4B1C-B8AA-435EBD08C6E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD44B49-88B7-4B1C-B8AA-435EBD08C6E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD44B49-88B7-4B1C-B8AA-435EBD08C6E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

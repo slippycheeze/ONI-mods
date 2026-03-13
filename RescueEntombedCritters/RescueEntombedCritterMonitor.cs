@@ -45,10 +45,10 @@ public class RescueEntombedCritterMonitor: StateMachineComponent<RescueEntombedC
 
         public void AutomaticallyRescue() {
             L.debug($"{master.Humanize()}: trying to auto-rescue trapped critter");
-
+            // just in case we were freed, but didn't notice yet.
             if (!IsEntombed()) {
                 GoTo(sm.normal);
-                return;         // just in case we were freed, but didn't notice yet.
+                return;
             }
 
             int cell = Grid.PosToCell(this);

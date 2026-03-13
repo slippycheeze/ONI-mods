@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <!-- project related properties -->
   <PropertyGroup>
-    <PackageId>SlippyCheeze.ModeratelyImprovedBlueprintSelection</PackageId>
+    <PackageId>SlippyCheeze.ImprovedFacadeSelection</PackageId>
     <AssemblyName>$(PackageId)</AssemblyName>
     <RootNamespace>$(PackageId)</RootNamespace>
 
@@ -9,8 +9,8 @@
     <IsPacked>true</IsPacked>
 
     <!-- Mod Info -->
-    <ModName>Moderately Improved Blueprint Selection</ModName>
-    <ModDescription>Add a "random" facade / blueprint option to buildings, and another to remember the previously selected blueprint.</ModDescription>
+    <ModName>Improved Facade Selection</ModName>
+    <ModDescription>Improve the Blueprint (facade) selection panel with an option to pick a random available option, and to remember the selection for next time the building is placed.</ModDescription>
     <MinimumSupportedBuild>$(TargetGameVersion)</MinimumSupportedBuild>
     <APIVersion>2</APIVersion>
   </PropertyGroup>
