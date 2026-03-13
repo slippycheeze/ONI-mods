@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32929.385
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
@@ -41,6 +41,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweaksAndFixes", "TweaksAndFixes\TweaksAndFixes.csproj", "{30D3883D-8522-42C6-8070-65C060393D24}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicResourceSensor", "LogicResourceSensor\LogicResourceSensor.csproj", "{9062EAB3-F021-42E1-AB8E-61643E0671BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModeratelyImprovedBlueprintSelection", "ModeratelyImprovedBlueprintSelection\ModeratelyImprovedBlueprintSelection.csproj", "{78F1AB5D-A873-43A6-A18C-45C6EA9604E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,6 +118,10 @@ Global
 		{9062EAB3-F021-42E1-AB8E-61643E0671BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9062EAB3-F021-42E1-AB8E-61643E0671BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9062EAB3-F021-42E1-AB8E-61643E0671BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78F1AB5D-A873-43A6-A18C-45C6EA9604E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78F1AB5D-A873-43A6-A18C-45C6EA9604E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78F1AB5D-A873-43A6-A18C-45C6EA9604E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78F1AB5D-A873-43A6-A18C-45C6EA9604E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
