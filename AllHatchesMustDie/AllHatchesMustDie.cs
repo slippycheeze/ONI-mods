@@ -65,7 +65,7 @@ internal static partial class AllHatchesMustDie {
 
             alignment.SetPlayerTargeted(true);
             if (go.TryGetComponent<Prioritizable>(out var prioritizable))
-                prioritizable.SetMasterPriority(new(PriorityScreen.PriorityClass.basic, 8));
+                prioritizable.SetMasterPriority(new(PriorityScreen.PriorityClass.basic, 9));
         }
     }
 }
