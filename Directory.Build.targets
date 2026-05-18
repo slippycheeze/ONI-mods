@@ -192,6 +192,7 @@ DestinationFolder="$(ArchiveTargetFolder)"/>
                                 " />
     <RefAssemblies Include="../PublicisedAssembly/*.dll; @(GameRefAssemblies->'$(GameLibsFolder)\%(Identity)')" />
   </ItemGroup>
+
   <Target Name="GenerateRefAssemblies"
           Inputs="@(RefAssemblies)"
           Outputs="@(RefAssemblies->'../Lib/%(Filename)%(Extension)')"

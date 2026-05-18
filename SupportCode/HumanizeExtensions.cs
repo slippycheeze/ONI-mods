@@ -2,6 +2,7 @@
 
 
 public static class HumanizerExtensions {
+    public static string ToStringOrNull<T>(this T what) => what == null ? "<null>" : what.ToString();
     public static string OrNull(this string str) => str == null ? "<null>" : str;
 
     public static string IsOrIsNot(this string term, bool value) => value switch {

@@ -1,11 +1,11 @@
 ﻿// This provides the baseline ModMain that *all* my mods use.  Individual mods shouldn't be
 // customizing anything here, they should be implementing one of the hooks this works with to do
 // their things.
+using System.Diagnostics;
 using KMod;
 using PeterHan.PLib.Buildings;
 using PeterHan.PLib.Core;
 using SlippyCheeze.SupportCode.LogErrorNotifier;
-using System.Diagnostics;
 
 
 namespace SlippyCheeze;
