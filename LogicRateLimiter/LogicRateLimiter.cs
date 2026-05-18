@@ -1,4 +1,4 @@
-﻿using KSerialization;
+using KSerialization;
 
 namespace SlippyCheeze.LogicRateLimiter;
 
@@ -30,26 +30,28 @@ public class LogicRateLimiter: LogicGate, ISingleSliderControl, ISliderControl {
     // physics tick for handling logic circuit stuff.  So, we work internally in those units all the
     // time, and leave the float value as our "public" API and all.
     [Serialize]
+    private int _periodInTicks = SecondsToTicks(DefaultPeriodInSeconds);
     private int periodInTicks {
-        get => field <= 0 ? field = DefaultPeriodInTicks : field;
+        get => _periodInTicks <= 0 ? _periodInTicks = DefaultPeriodInTicks : _periodInTicks;
         set {
-            field = value.Clamp(MinPeriodInTicks, MaxPeriodInTicks);
+            _periodInTicks = value.Clamp(MinPeriodInTicks, MaxPeriodInTicks);
             // ensure the remaining delay is reduced if our period was reduced.
-            delayTicksRemaining = delayTicksRemaining.Clamp(0, field);
+            delayTicksRemaining = delayTicksRemaining.Clamp(0, _periodInTicks);
         }
-    } = -1;
+    }
 
     // The number of  remaining that we are idle for.  This is set to
     // Period when we start sending a green signal, and counts down every tick until it hits zero
     // before we will send another.
     [Serialize]
+    private int _delayTicksRemaining = 0;
     private int delayTicksRemaining {
-        get;
+        get => _delayTicksRemaining;
         set {
-            field = value;
+            _delayTicksRemaining = value;
             UpdateCountdownDisplay();
         }
-    } = 0;
+    }
 
 
     // ==========================================================================================
@@ -169,13 +171,14 @@ public class LogicRateLimiter: LogicGate, ISingleSliderControl, ISliderControl {
     enum State { Ready, Emit, EmitWait, Wait }
 
     [Serialize]
+    private State _state = State.Ready;
     private State state {
-        get;
+        get => _state;
         set {
-            field = value;
+            _state = value;
             UpdateCountdownDisplay();
         }
-    } = State.Ready;
+    }
 
 
     public override void LogicTick() {
