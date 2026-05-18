@@ -57,6 +57,10 @@ public static class SmartResourceDiscovery {
         DiscoveredResources.Instance.Discover(Tags.IgneousRock, GameTags.BuildableRaw);
         DiscoveredResources.Instance.Discover(Tags.Cuprite, GameTags.Metal);  // copper ore
         DiscoveredResources.Instance.Discover(Tags.Dirt, GameTags.Farmable);
+        DiscoveredResources.Instance.Discover(Tags.Dirt, GameTags.Farmable);
+        // discovered clay because otherwise another mod auto-selects it in my dirt storage bins,
+        // and I'd rather not have that happen; it isn't like it is a rare discovery. :)
+        DiscoveredResources.Instance.Discover(Tags.Clay, GameTags.Farmable);
 
         // The nasty things I want to schedule putting away *before* they first drop.
         DiscoveredResources.Instance.Discover(Tags.SlimeMold, GameTags.Organics);  // Slime
