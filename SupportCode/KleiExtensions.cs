@@ -2,10 +2,17 @@
 
 public static class KleiExtensions {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float ToKelvin(this float celsius) => Constants.CELSIUS2KELVIN + celsius;
+    public static float ToKelvin(this float celsius) => celsius + Constants.CELSIUS2KELVIN;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float ToKelvin(this int celsius) => Constants.CELSIUS2KELVIN + celsius;
+    public static float ToKelvin(this int celsius)   => celsius + Constants.CELSIUS2KELVIN;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static float ToCelsius(this float kelvin) => kelvin - Constants.CELSIUS2KELVIN;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static float ToCelsius(this int kelvin)   => kelvin - Constants.CELSIUS2KELVIN;
+
 
     // gonna manually add the optional parameters as needed, to avoid copying (too many) default
     // values from Klei code into my own.  wish I could `using static` part of a class. :(
