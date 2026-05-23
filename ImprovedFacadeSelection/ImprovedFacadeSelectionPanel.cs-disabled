@@ -1,0 +1,158 @@
+using KSerialization;
+using PeterHan.PLib.UI;
+
+namespace SlippyCheeze.ImprovedFacadeSelection;
+
+// for the "pick at random" icon / image
+// codexTipsAndinfo              - steel blue question mark in circle
+// mode_segue                    - question mark, grey with black outline
+// new_lore                      - blueprint rolled and tied with a ribbon
+// icon_categories_placeholder   - keyring with tags, an image on each of them
+// SupplyClosetIcon_LootBox      - (UNUSED?) loot box icon in Klei style (sadly, shows shirt image)
+// icon_archetype_random         - white "two arrows in a circle" type image
+// SupplyClosetIcons_Blueprint   - shows the portal ALA "blueprint won" spawn, on a blueprint
+// SupplyClosetIcon_Blueprints   - randomly scattered "all types" examples, also large
+// ui_elemenents-other           - black-ish bubbles, with a sketch question mark on top
+// requirements                  - question mark in circle, but only grey, and tiny
+// codexIconBuildings            - coal gen, musherator, algae O2 machine, sort randomly spattered
+// rotate_building               - 3D effect two arrows making a circle
+// reveal                        - eye icon, grey with red pupil
+// icon_display_screen_status    - dashed line single circle arrow in red
+// statusIcon                    - speech bubble with dashed line single circle arrow in red
+
+// [HarmonyPatch]
+// [SerializationConfig(MemberSerialization.OptIn)]
+// internal partial class ImprovedFacadeSelectionPanel: KMonoBehaviour {
+//     [HarmonyPatch(typeof(ProductInfoScreen), nameof(ProductInfoScreen.Awake))]
+//     [HarmonyPostfix]
+//     internal static void AttachToProductInfoScreen(FacadeSelectionPanel __instance)
+//         => __instance.AddOrGet<ImprovedFacadeSelectionPanel>();
+
+//     [MyCmpGet]
+//     FacadeSelectionPanel facadeSelectionPanel = null!;
+
+//     // SC_ to unique it in case someone else had the same clever idea, so we don't clash. ;)
+//     public const string RandomFacadeID = "SC_USE_RANDOM_FACADE";
+
+//     private SCheckBox rememberCheckbox = null!;
+
+
+//     public override void OnPrefabInit() {
+//         // the parent of our checkbox
+//         if (facadeSelectionPanel.transform.Find("FacadeSelector") is not Transform facadeSelector) {
+//             L.error($"{this.Humanize()}: failed to find FacadeSelector child Transform");
+//             PUIUtils.DebugObjectTree(facadeSelectionPanel.gameObject);
+//             return;
+//         }
+
+//         // inject this control just *before* the blueprint grid.  that way we can have plenty of
+//         // other things added, and it won't cause harm.  hopefully.
+//         //
+//         // NOTE: I'm using "after the header" rather than "before the content" because the component
+//         // uses a ScrollRect conditionally to wrap the content.  In my initial testing it never
+//         // created one, but in a live game it did.  I don't know why, and can't find anywhere that
+//         // actually touches it, but it sure as heck happened.
+//         //
+//         // The header is stable, so for now that'll work.  Annoying, but so much is. :)
+//         if (facadeSelector.Find("Header") is not Transform header) {
+//             L.error($"{this.Humanize()}: failed to find FacadeSelector/Header child Transform");
+//             PUIUtils.DebugObjectTree(facadeSelector.gameObject);
+//             return;
+//         }
+
+//         rememberCheckbox = new SCheckBox(
+//             "RememberChoice",
+//             MODSTRINGS.UI.IMPROVED_FACADE_SELECTION_PANEL.REMEMBER_CHOICE.TEXT,
+//             MODSTRINGS.UI.IMPROVED_FACADE_SELECTION_PANEL.REMEMBER_CHOICE.TOOLTIP,
+//             this.OnRememberChoiceChanged
+//         )
+//             .AddTo(facadeSelector, header.GetSiblingIndex() + 1)
+//             .SetActive(false);
+//     }
+
+//     // handling the RememberChoice checkbox.
+//     private void OnRememberChoiceChanged(SCheckBox checkbox, bool state) {
+//         L.info($"{this.Humanize()}: OnRememberChoiceClicked({checkbox}, {state})");
+//         // if we do nothing, nothing changes in the checkbox.  YOLO.
+
+//         checkbox.IsChecked = state;
+//     }
+
+
+//     // Hook the overall refresh process to update the checkbox, regardless of which type of entity
+//     // we are editing at the moment.  Avoids the situation where Klei add critter blueprints, and
+//     // suddenly my code doesn't cope, because I only hooked Dupe Clothing and Building
+//     // facade selection.
+//     internal void AfterPanelRefresh() {
+//         bool isBuilding = (facadeSelectionPanel.currentConfigType == FacadeSelectionPanel.ConfigType.BuildingFacade);
+//         rememberCheckbox.SetActive(isBuilding);
+//     }
+
+//     // Hook the building refresh process, so I can put my "random" button in place.
+//     //
+//     // What I really want is to hook `Refresh` between the type-specific setup and the "get more"
+//     // button setup, which this is the closest approximation possible.
+//     internal void AfterRefreshTogglesForBuilding() {
+//         // only called if buildings are being shown, so I don't need check for that condition.
+
+//     }
+
+
+//     /*
+//      * GetMoreButton and FacadeToggle while building selected, inactive components removed, edit for clarity.
+//      *
+//      * GameObject[FacadeTogglePrefab, 4 child(ren), Layer 5, Active=True, CanvasRenderer=True]
+//      *     Translation=(2912.49, 101.41, 0) [(43, -43, 0)] Rotation=(0, 0, 0, 1) [(0, 0, 0, 1)] Scale=(1, 1, 1)
+//      *     Rect[Size=(78,78) Min=(0,0) Preferred=(0,0) Flexible=(0,0) Pivot=(0.5,0.5)
+//      *                       AnchorMin=(0,1) AnchorMax=(0,1) OffsetMin=(4,-82) OffsetMax=(82,-4)]
+//      *     Children:
+//      *         GameObject[BGImage, 0 child(ren), Layer 5, Active=True, CanvasRenderer=True]
+//      *             Translation=(2912.49, 101.41, 0) [(0, 0, 0)] Rotation=(0, 0, 0, 1) [(0, 0, 0, 1)] Scale=(1, 1, 1)
+//      *             Rect[Size=(78,78) Min=(0,0) Preferred=(10,10) Flexible=(0,0) Pivot=(0.5,0.5)
+//      *                               AnchorMin=(0,0) AnchorMax=(1,1) OffsetMin=(0,0) OffsetMax=(0,0)]
+//      *             Component[UnityEngine.UI.Image, Color=RGBA(0.502, 0.545, 0.698, 1), Sprite=web_button]
+//      *         GameObject[FGImage, 0 child(ren), Layer 5, Active=True, CanvasRenderer=True]
+//      *             Translation=(2912.49, 101.41, 0) [(0, 0, 0)] Rotation=(0, 0, 0, 1) [(0, 0, 0, 1)] Scale=(1, 1, 1)
+//      *             Rect[Size=(78,78) Min=(0,0) Preferred=(213,253.19) Flexible=(0,0) Pivot=(0.5,0.5)
+//      *                               AnchorMin=(0,0) AnchorMax=(1,1) OffsetMin=(0,0) OffsetMax=(0,0)]
+//      *             Component[UnityEngine.UI.Image, Color=RGBA(1, 1, 1, 1), Sprite=wash_sink_red_rose_0:ui:False]
+//      * GameObject[GetMoreToggle, 2 child(ren), Layer 5, Active=True, CanvasRenderer=True]
+//      *     Translation=(2887.55, 124.69, 0) [(28, -29, 0)] Rotation=(0, 0, 0, 1) [(0, 0, 0, 1)] Scale=(1, 1, 1)
+//      *     Rect[Size=(48,50) Min=(0,0) Preferred=(0,0) Flexible=(0,0) Pivot=(0.5,0.5)
+//      *          AnchorMin=(0,1) AnchorMax=(0,1) OffsetMin=(4,-54) OffsetMax=(52,-4)]
+//      *     Children:
+//      *         GameObject[BGImage, 0 child(ren), Layer 5, Active=True, CanvasRenderer=True]
+//      *             Translation=(2887.55, 124.69, 0) [(0, 0, 0)] Rotation=(0, 0, 0, 1) [(0, 0, 0, 1)] Scale=(1, 1, 1)
+//      *             Rect[Size=(48,50) Min=(0,0) Preferred=(10,10) Flexible=(0,0) Pivot=(0.5,0.5)
+//      *                               AnchorMin=(0,0) AnchorMax=(1,1) OffsetMin=(0,0) OffsetMax=(0,0)]
+//      *             Component[KImage, Color=RGBA(0.243, 0.263, 0.341, 1), Sprite=web_button,
+//      *                               defaultState=Inactive, colorSelector=Inactive, colorStyleSetting=colorstyle_button]
+//      *         GameObject[FGImage, 0 child(ren), Layer 5, Active=True, CanvasRenderer=True]
+//      *             Translation=(2887.55, 124.69, 0) [(0, 0, 0)] Rotation=(0, 0, 0, 1) [(0, 0, 0, 1)] Scale=(1, 1, 1)
+//      *             Rect[Size=(44,46) Min=(0,0) Preferred=(272,300) Flexible=(0,0) Pivot=(0.5,0.5)
+//      *                               AnchorMin=(0,0) AnchorMax=(1,1) OffsetMin=(2,2) OffsetMax=(-2,-2)]
+//      *             Component[UnityEngine.UI.Image, Color=RGBA(1, 1, 1, 1), Sprite=icon_display_screen_blueprint]
+//      */
+
+//     [HarmonyPatch(nameof(FacadeSelectionPanel.Refresh))]
+//     [HarmonyPostfix]
+//     internal static void AfterRefreshHook(FacadeSelectionPanel __instance)
+//         => __instance.GetComponent<ImprovedFacadeSelectionPanel>().AfterPanelRefresh();
+
+//     [HarmonyPatch(nameof(FacadeSelectionPanel.RefreshTogglesForBuilding))]
+//     [HarmonyPostfix]
+//     internal static void RefreshTogglesForBuildingHook(FacadeSelectionPanel __instance)
+//         => __instance.GetComponent<ImprovedFacadeSelectionPanel>().AfterRefreshTogglesForBuilding();
+// }
+
+// public static partial class MODSTRINGS {
+//     public static partial class UI {
+//         public static partial class IMPROVED_FACADE_SELECTION_PANEL {
+//             public static partial class REMEMBER_CHOICE {
+//                 public static readonly LocString TEXT = "Remember My Choice?";
+//                 public static readonly LocString TOOLTIP =
+//                     "If checked, the next time you build this building it will also use the same blueprint.";
+//             }
+//         }
+//     }
+// }
