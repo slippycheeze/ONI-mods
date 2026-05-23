@@ -3,9 +3,11 @@ namespace SlippyCheeze.SupplyTeleporterLogicBridge;
 // SupplyTeleporterReceiverConfig: add the logic port to the BuildingDef.  This is everything required
 // from that side; Klei will create the `LogicPorts` component that I need, later, to send data, and
 // we never receive it, so ... job done.
-[HarmonyPatch(typeof(WarpConduitReceiverConfig), nameof(WarpConduitReceiverConfig.CreateBuildingDef))]
+[HarmonyPatch(typeof(WarpConduitReceiverConfig))]
 internal static partial class AddPortToSupplyTeleporterReceiver {
-    internal static void Postfix(BuildingDef __result) {
+    [HarmonyPatch(nameof(WarpConduitReceiverConfig.CreateBuildingDef))]
+    [HarmonyPostfix]
+    internal static void OnCreateBuildingDef(BuildingDef __result) {
         __result.LogicOutputPorts ??= [];
         __result.LogicOutputPorts.Add(
             LogicPorts.Port.RibbonOutputPort(
@@ -23,5 +25,12 @@ internal static partial class AddPortToSupplyTeleporterReceiver {
         // make it a happy little camper. :)
         GeneratedBuildings.RegisterWithOverlay(OverlayModes.Logic.HighlightItemIDs, WarpConduitReceiverConfig.ID);
         __result.AddSearchTerms(STRINGS.SEARCH_TERMS.AUTOMATION);
+    }
+
+    [HarmonyPatch(nameof(WarpConduitReceiverConfig.DoPostConfigureComplete))]
+    [HarmonyPostfix]
+    internal static void OnDoPostConfigureComplete([HarmonyArgument(0)] GameObject go) {
+        go.RemoveTag(GameTags.OverlayInFrontOfConduits);
+        go.AddTag(GameTags.OverlayBehindConduits);
     }
 }

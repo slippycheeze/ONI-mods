@@ -5,7 +5,7 @@ internal static partial class SupplyTeleporterSenderPatches {
     // add the logic port to the BuildingDef
     [HarmonyPatch(nameof(WarpConduitSenderConfig.CreateBuildingDef))]
     [HarmonyPostfix]
-    internal static void AddPortToSupplyTeleporterSender(BuildingDef __result) {
+    internal static void OnCreateBuildingDef(BuildingDef __result) {
         __result.LogicInputPorts ??= [];
         __result.LogicInputPorts.Add(
             LogicPorts.Port.RibbonInputPort(
@@ -28,7 +28,10 @@ internal static partial class SupplyTeleporterSenderPatches {
     // SupplyTeleporterSenderConfig: add this component to the building when it is constructed.
     [HarmonyPatch(nameof(WarpConduitSenderConfig.DoPostConfigureComplete))]
     [HarmonyPostfix]
-    internal static void AddComponentToSupplyTeleporterSender([HarmonyArgument(0)] GameObject go) {
+    internal static void OnDoPostConfigureComplete([HarmonyArgument(0)] GameObject go) {
         go.AddOrGet<SupplyTeleporterLogicSender>();
+
+        go.RemoveTag(GameTags.OverlayInFrontOfConduits);
+        go.AddTag(GameTags.OverlayBehindConduits);
     }
 }
