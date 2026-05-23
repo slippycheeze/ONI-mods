@@ -120,6 +120,12 @@ public static class HarmonyExtras {
         .MatchStartForward(matches)
         .ThrowIfInvalid(explanation)
         .RemoveInstructions(matches.Length);
+
+    // the default doesn't remove the matching instruction, this variant does.
+    public static CodeMatcher RemoveSearchForwardIncluding(this CodeMatcher matcher, Func<CodeInstruction, bool> predicate)
+        => matcher
+        .RemoveSearchForward(predicate)
+        .RemoveInstruction();
 }
 
 
