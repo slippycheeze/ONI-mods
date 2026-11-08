@@ -21,5 +21,5 @@ public static class HumanizerExtensions {
         => go == null ? "<null>" : $"{go.name}[{go.GetInstanceID()}]";
 
     public static string Humanize<T>(this T? cmp) where T: Component
-        => cmp == null ? "<null>" : $"{cmp.GetType().Name}({cmp.gameObject.Humanize()})";
+        => cmp == null ? "<null>" : $"{cmp.gameObject.Humanize()}<{cmp.GetType().Name}>";
 }
