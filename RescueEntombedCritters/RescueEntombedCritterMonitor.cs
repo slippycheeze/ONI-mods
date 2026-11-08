@@ -1,4 +1,4 @@
-﻿namespace SlippyCheeze.RescueEntombedCritters;
+namespace SlippyCheeze.RescueEntombedCritters;
 
 
 [HarmonyPatch]
@@ -26,6 +26,11 @@ public class RescueEntombedCritterMonitor: StateMachineComponent<RescueEntombedC
                 return false;
             }
 
+            if (HasTag(GameTags.Creatures.Tunnel)) {
+                // Vole is digging, let it.
+                return false;
+            }
+
             if (HasTag(GameTags.Creatures.Burrowed)) {
                 // Hatches can unburrow even from built tiles, but there must be room above.
                 if (gameObject.GetSMI<BurrowMonitor.Instance>().EmergeIsClear())
@@ -33,7 +38,7 @@ public class RescueEntombedCritterMonitor: StateMachineComponent<RescueEntombedC
             }
 
             if (this.gameObject.GetSMI<DiggerMonitor.Instance>() is DiggerMonitor.Instance monitor) {
-                if (monitor.IsValidDigCell(cell)) {
+                if (DiggerMonitor.Instance.IsValidDigCell(cell)) {
                     // Shove voles can get out of almost everything.
                     return false;
                 }
@@ -94,6 +99,8 @@ public class RescueEntombedCritterMonitor: StateMachineComponent<RescueEntombedC
 
         public override void InitializeStates(out BaseState default_state) {
             default_state = this.normal;
+
+            // REVISIT: see if `GameHashes.EntombedChanged` can be used instead of polling.
 
             this.normal
                 // .Enter("Normal", smi => L.debug($"IsNormal: {smi.master.Humanize()}"))
