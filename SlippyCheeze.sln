@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerWireCircuitInfo", "Pow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeteorCrashBangCatcher", "MeteorCrashBangCatcher\MeteorCrashBangCatcher.csproj", "{F13A403D-392F-4657-8BAF-C46449885D85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DupesBreathInSuitsWhenAsphyxiating", "DupesBreathInSuitsWhenAsphyxiating\DupesBreathInSuitsWhenAsphyxiating.csproj", "{ABC7B1DD-9DC6-F152-828F-956A6C407605}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +142,10 @@ Global
 		{F13A403D-392F-4657-8BAF-C46449885D85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F13A403D-392F-4657-8BAF-C46449885D85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F13A403D-392F-4657-8BAF-C46449885D85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABC7B1DD-9DC6-F152-828F-956A6C407605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABC7B1DD-9DC6-F152-828F-956A6C407605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABC7B1DD-9DC6-F152-828F-956A6C407605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC7B1DD-9DC6-F152-828F-956A6C407605}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
