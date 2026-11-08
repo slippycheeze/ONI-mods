@@ -11,7 +11,7 @@ public class OnAllModsLoadedHookAspect: IAspect<IMethod> {
         builder.AddRule(EligibilityRuleFactory.GetAdviceEligibilityRule(AdviceKind.OverrideMethod));
 
         builder.MustBeStatic();
-        builder.MustHaveAccessibility(Accessibility.Public);
+        builder.MustHaveAccessibility(Accessibility.Public, Accessibility.Internal);
 
         builder.MustSatisfy(
             static method => method.MethodKind == MethodKind.Default,
