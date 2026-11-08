@@ -170,6 +170,15 @@ public class L {
         WriteLogLine(DEBUG, message, line, path);
     }
 
+    public static void debugWithStackTrace(
+        string message,
+        [CallerLineNumber] int line = -1,
+        [CallerFilePath] string? path = null
+    ) {
+        WriteLogLine(DEBUG, $"{message}\n{new StackTrace(1)}", line, path);
+    }
+
+
     public static void debug(
         object? value,
         [CallerArgumentExpression(nameof(value))] string? expr = null,
