@@ -96,6 +96,10 @@
       <HintPath>$(GameLibsFolder)/Unity.TextMeshPro.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>$(GameLibsFolder)/UnityEngine.AnimationModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>$(GameLibsFolder)/UnityEngine.AssetBundleModule.dll</HintPath>
       <Private>false</Private>
