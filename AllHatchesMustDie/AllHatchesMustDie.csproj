@@ -7,7 +7,6 @@
 
   <!-- Build Properties -->
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <Configurations>Debug;Release</Configurations>
     <AssemblyName>SlippyCheeze.AllHatchesMustDie</AssemblyName>
     <RootNamespace>SlippyCheeze.AllHatchesMustDie</RootNamespace>

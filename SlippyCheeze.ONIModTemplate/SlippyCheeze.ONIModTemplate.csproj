@@ -16,6 +16,7 @@
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
 
+    <DoNotBuildAsMod>true</DoNotBuildAsMod>
 
     <!-- auto-generate the nuget package on build, yay! -->
     <IsPackable>true</IsPackable>
@@ -30,7 +31,7 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <ContentTargetFolders>content</ContentTargetFolders>
 
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
 
     <NuGetAuditMode>all</NuGetAuditMode>

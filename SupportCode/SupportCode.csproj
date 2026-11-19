@@ -8,11 +8,11 @@
 
   <!-- Build Properties -->
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <Configurations>Debug;Release</Configurations>
     <AssemblyName>SlippyCheeze.SupportCode</AssemblyName>
     <RootNamespace>SlippyCheeze.SupportCode</RootNamespace>
     <IsMod>false</IsMod>
+    <DoNotBuildAsMod>true</DoNotBuildAsMod>
     <IncludeModReferences>true</IncludeModReferences>
     <IsPacked>false</IsPacked>
 

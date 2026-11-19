@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- Build Properties -->
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <Configurations>Debug;Release</Configurations>
     <AssemblyName>SlippyCheeze.MetaProgramming</AssemblyName>
     <RootNamespace>SlippyCheeze.MetaProgramming</RootNamespace>
     <IsMod>false</IsMod>
+    <DoNotBuildAsMod>true</DoNotBuildAsMod>
     <IncludeModReferences>true</IncludeModReferences>
     <IsPacked>false</IsPacked>
 

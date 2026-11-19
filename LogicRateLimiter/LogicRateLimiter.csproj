@@ -7,7 +7,6 @@
 
   <!-- Build Properties -->
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <Configurations>Debug;Release</Configurations>
     <AssemblyName>SlippyCheeze.LogicRateLimiter</AssemblyName>
     <RootNamespace>SlippyCheeze.LogicRateLimiter</RootNamespace>

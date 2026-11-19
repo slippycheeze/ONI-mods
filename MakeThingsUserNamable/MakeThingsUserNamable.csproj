@@ -13,7 +13,6 @@
 
   <!-- Build Properties -->
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <Configurations>Debug;Release</Configurations>
     <AssemblyName>SlippyCheeze.MakeThingsUserNamable</AssemblyName>
     <RootNamespace>SlippyCheeze.MakeThingsUserNamable</RootNamespace>

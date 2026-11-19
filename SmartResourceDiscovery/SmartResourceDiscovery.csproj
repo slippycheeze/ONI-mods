@@ -17,7 +17,6 @@
 
   <!-- build related properties -->
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <Configurations>Debug;Release</Configurations>
 
     <GenerateMetadata>true</GenerateMetadata>

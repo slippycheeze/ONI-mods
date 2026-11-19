@@ -6,7 +6,6 @@
 
   <!-- Build Properties -->
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <Configurations>Debug;Release</Configurations>
     <AssemblyName>SlippyCheeze.DupesBreathInSuitsWhenAsphyxiating</AssemblyName>
     <RootNamespace>SlippyCheeze.DupesBreathInSuitsWhenAsphyxiating</RootNamespace>
