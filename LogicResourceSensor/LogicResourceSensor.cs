@@ -212,7 +212,11 @@ public partial class LogicResourceSensor: Switch, ISaveLoadable, ISim200ms, IThr
         base.OnPrefabInit();
 
         this.gameObject.AddOrGet<CopyBuildingSettings>();  // ensure component is present
-        this.Subscribe((int)GameHashes.CopySettings, OnCopySettingsDelegate);
+        this.Subscribe(
+            (int)GameHashes.CopySettings,
+            static (ctx, data) => ((LogicResourceSensor)ctx).OnCopySettings(data),
+            this
+        );
     }
 
 
@@ -253,9 +257,6 @@ public partial class LogicResourceSensor: Switch, ISaveLoadable, ISim200ms, IThr
 
     // =============================================================================================
     // copy-paste support. :)
-    private static readonly EventSystem.IntraObjectHandler<LogicResourceSensor> OnCopySettingsDelegate
-        = new((component, data) => component.OnCopySettings(data));
-
     private void OnCopySettings(object data) {
         if (data is null || data is not GameObject go) {
             L.error("received {data.Type} instead of the expected GameObject");
@@ -719,7 +720,8 @@ public partial class LogicResourceSensor: Switch, ISaveLoadable, ISim200ms, IThr
                 MinXY.x, MinXY.y,
                 size.x, size.y,  // width and height, technically.
                 GameScenePartitioner.Instance.pickupablesChangedLayer,  // thanks, LogicMassSensor
-                OnPickupablesChanged
+                static (ctx, data) => ((CellData)ctx).OnPickupablesChanged(data),
+                this
             );
 
             L.debug($"subscribing to World.Instance.OnSolidChanged");

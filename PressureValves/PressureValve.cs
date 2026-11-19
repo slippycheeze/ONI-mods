@@ -49,7 +49,7 @@ public abstract partial class PressureValve: KMonoBehaviour, IBridgedNetworkItem
             warnOnce = false;
         }
 
-        Subscribe((int)GameHashes.FunctionalChanged, OnFunctionalChangedDelegate);
+        Subscribe((int)GameHashes.FunctionalChanged, OnFunctionalChangedDelegate, this);
 
         var building = GetComponent<Building>();
         inputCell    = building.GetUtilityInputCell();
@@ -75,13 +75,8 @@ public abstract partial class PressureValve: KMonoBehaviour, IBridgedNetworkItem
         operational.SetFlag(outputConnectionFlag, FlowManager.HasConduit(outputCell));
     }
 
-    private static readonly EventSystem.IntraObjectHandler<PressureValve> OnFunctionalChangedDelegate
-        = new((component, data) => {
-              if (data is Boxed<bool> box)
-                  component.OnFunctionalChanged(box.value);
-              else
-                  L.error($"OnFunctionalChangedDelegate: data is {data.GetType()} '{data}'");
-        });
+    private static void OnFunctionalChangedDelegate(object context, object data)
+        => ((PressureValve)context).OnFunctionalChanged(((Boxed<bool>)data).value);
 
     private void OnFunctionalChanged(bool functional) {
         // if we are non-functional, we are definitely non-active.  on the other hand, if we are

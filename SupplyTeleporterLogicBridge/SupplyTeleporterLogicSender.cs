@@ -30,7 +30,11 @@ public partial class SupplyTeleporterLogicSender: KMonoBehaviour {
 
     public override void OnPrefabInit() {
         base.OnPrefabInit();
-        Subscribe<SupplyTeleporterLogicSender>((int)GameHashes.LogicEvent, OnLogicEventDelegate);
+        onLogicEventHandle = Subscribe(
+            (int)GameHashes.LogicEvent,
+            static (ctx, data) => ((SupplyTeleporterLogicSender)ctx).OnLogicEvent(data),
+            this
+        );
     }
 
     public override void OnSpawn() {
@@ -44,10 +48,6 @@ public partial class SupplyTeleporterLogicSender: KMonoBehaviour {
         Unsubscribe(ref onLogicEventHandle);
         base.OnCleanUp();
     }
-
-    // received when our input logic value changes, via the LogicPorts component.
-    private static readonly EventSystem.IntraObjectHandler<SupplyTeleporterLogicSender> OnLogicEventDelegate
-        = new((component, data) => component.OnLogicEvent(data));
 
     // the handle from our event subscription.  non-persistent, since we reconnect next time.
     private int onLogicEventHandle = -1;

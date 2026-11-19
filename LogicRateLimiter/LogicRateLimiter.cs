@@ -1,4 +1,4 @@
-using KSerialization;
+﻿using KSerialization;
 
 namespace SlippyCheeze.LogicRateLimiter;
 
@@ -73,7 +73,11 @@ public class LogicRateLimiter: LogicGate, ISingleSliderControl, ISliderControl {
 
     public override void OnPrefabInit() {
         base.OnPrefabInit();
-        Subscribe<LogicRateLimiter>((int)GameHashes.CopySettings, LogicRateLimiter.OnCopySettingsDelegate);
+        Subscribe(
+            (int)GameHashes.CopySettings,
+            static (ctx, data) => ((LogicRateLimiter)ctx).OnCopySettings(data),
+            this
+        );
     }
 
     public override void OnSpawn() {
@@ -265,9 +269,6 @@ public class LogicRateLimiter: LogicGate, ISingleSliderControl, ISliderControl {
     [MyCmpAdd]
     private CopyBuildingSettings copyBuildingSettings = null!;
 #pragma warning restore CS0414
-
-    private static readonly EventSystem.IntraObjectHandler<LogicRateLimiter> OnCopySettingsDelegate
-        = new((component, data) => component.OnCopySettings(data));
 
     private void OnCopySettings(object data) {
         if (data == null || data is not GameObject go || go == null) {
