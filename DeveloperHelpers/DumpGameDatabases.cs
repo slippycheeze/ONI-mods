@@ -52,7 +52,7 @@ namespace SlippyCheeze.DeveloperHelpers;
 //                 return;
 //             }
 
-//             GameScheduler.Instance.ScheduleNextFrame(nameof(DumpDatabase), StartDatabaseDump);
+//             GameScheduler.Instance.ScheduleNextGameTick(nameof(DumpDatabase), StartDatabaseDump);
 //         }
 
 //         internal void StartDatabaseDump(object? _ = null) {
