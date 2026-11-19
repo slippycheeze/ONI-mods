@@ -27,7 +27,10 @@ public static class HelpfulExtensions {
 
     // 2025-07-06 REVISIT: should I do this more dynamically or something?  hard to say, TBH.
     private const string topLevelNamespace = "SlippyCheeze.";
-    public static string ShortDescription(this MethodBase method, bool stripNamespace = false) {
+    public static string ShortDescription(this MethodBase? method, bool stripNamespace = false) {
+        if (method == null)
+            return "<null>";
+
         string desc = $"{method.DeclaringType}.{method.Name}";
         if (stripNamespace) {
             if (desc.StartsWith(topLevelNamespace))
