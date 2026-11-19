@@ -76,19 +76,17 @@ public class LogErrorNotifier: MonoBehaviour {
         );
 
         public static string GetToolTip(List<Notification> notifications, object _) {
-            StringBuilder sb = GlobalStringBuilderPool.Alloc();
-            try {
-                sb.Append("log messages".ToQuantity(notifications.Count)).AppendLine(":");
+            KleiStringBuilder sb = KleiStringBuilder.BorrowFromPool();
+            sb.Append("log messages".ToQuantity(notifications.Count));
+            sb.Append(":\n");
 
-                foreach (var line in notifications)
-                    // tooltipData is the FormattedLine instance associated.
-                    sb.AppendLine(line.tooltipData.ToString());
-
-                return GlobalStringBuilderPool.ReturnAndFree(sb);
-            } catch {
-                GlobalStringBuilderPool.Free(sb);  // probably pointless, but whatever.
-                throw;
+            foreach (var line in notifications) {
+                // tooltipData is the FormattedLine instance associated.
+                sb.Append(line.tooltipData.ToString());
+                sb.Append('\n');
             }
+
+            return sb.TakeContent();
         }
 
         public static implicit operator Notification(LogLine message) => message.ToNotification();

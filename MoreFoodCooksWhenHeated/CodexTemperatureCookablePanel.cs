@@ -88,13 +88,13 @@ public class CodexTemperatureCookablePanel(FoodInfo raw, FoodInfo cooked, float 
         icon.sprite  = sprite.first;
         icon.color   = sprite.second;
 
-        StringBuilder sb = new(50);
-        GameUtil.AppendFormattedCalories(sb, food.CaloriesPerUnit * amount, true);
-        sb.AppendLine();
-        GameUtil.AppendFormattedMass(sb, amount, massFormat: GameUtil.MetricMassFormat.UseThreshold, includeSuffix: true);
+        var sb = KleiStringBuilder.BorrowFromPool();
+        sb.Append(GameUtil.GetFormattedCalories(food.CaloriesPerUnit * amount, showSuffix: true));
+        sb.Append('\n');
+        sb.Append(GameUtil.GetFormattedMass(amount, massFormat: GameUtil.MetricMassFormat.UseThreshold, includeSuffix: true));
 
         var title   = refs.GetReference<LocText>("Title");
-        title.text  = sb.ToString();
+        title.text  = sb.TakeContent();
         title.color = Color.black;
 
         // not honestly sure what I should do about this now.  maybe hide it instead?
