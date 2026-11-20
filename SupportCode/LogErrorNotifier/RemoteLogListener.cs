@@ -1,4 +1,4 @@
-﻿using PeterHan.PLib.Core;
+using PeterHan.PLib.Core;
 
 
 // CRITICAL: if this changes *AT ALL* you **MUST** bump the version, and cope with older
