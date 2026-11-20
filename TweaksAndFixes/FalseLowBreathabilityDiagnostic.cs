@@ -33,21 +33,20 @@ internal static class FixLowBreathabilityDiagnostics {
     ) {
         L.log($"Patching {target.ShortDescription()} to skip recording zero samples on empty planets.");
         try {
-            CodeMatch[] sequence = [
-                // IL_001e: ldarg.0      // this
-                new(OpCodes.Ldarg_0),
-                // IL_001f: ldc.r4       0.0
-                new(OpCodes.Ldc_R4, 0.0f),
-                // IL_0024: call         instance void Tracker::AddPoint(float32)
-                new(CodeMatch.Call(typeof(Tracker), nameof(Tracker.AddPoint), [typeof(float)])),
-            ];
-
             CodeMatcher matcher = new(code, generator);
 
             return matcher
-                .MatchStartForward(sequence)
+                .MatchStartForward(
+                    // IL_001e: ldarg.0      // this
+                    new(OpCodes.Ldarg_0),
+                    // IL_001f: ldc.r4       0.0
+                    new(OpCodes.Ldc_R4, 0.0f),
+                    // IL_0024: call         instance void Tracker::AddPoint(float32)
+                    new(CodeMatch.Call(typeof(Tracker), nameof(Tracker.AddPoint), [typeof(float)]))
+                )
                 .ThrowIfInvalid("could not find the invocation of AddPoint with a constant zero value.")
-                .RemoveInstructions(sequence.Length)
+                .SetAndAdvance(OpCodes.Nop, null)
+                .RemoveInstructions(2)
                 .Instructions();
         } catch (Exception e) {
             L.error($"Exception in transpiler, returning original code\n{e}");
